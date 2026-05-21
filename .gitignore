@@ -27,3 +27,6 @@ coverage/
 # Misc
 .cache/
 .parcel-cache
+
+# Supabase
+supabase/.temp
