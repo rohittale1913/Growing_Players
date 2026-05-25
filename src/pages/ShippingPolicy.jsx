@@ -1,6 +1,8 @@
 import Layout from '../layouts/MainLayout'
 import { Truck, Clock, Shield, DollarSign } from 'lucide-react'
 import { useState } from 'react'
+import { BiRupee } from 'react-icons/bi'
+import { FaIndianRupeeSign, FaRupeeSign } from 'react-icons/fa6'
 
 const ShippingPolicy = () => {
   const [expandedRegion, setExpandedRegion] = useState(0)
@@ -70,16 +72,16 @@ const ShippingPolicy = () => {
 
   return (
     <Layout>
-      <div className="bg-gradient-to-br from-primary-50 via-white to-rose-50 py-12">
+      <div className=" font-display bg-gradient-to-br from-primary-50 via-white to-rose-50 py-12">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
-          <div className="mb-12">
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">Shipping Policy</h1>
-            <p className="text-lg text-gray-600 mb-2">
+          <div className="mb-10 text-center">
+            <h1 className="text-4xl font-bold text-gray-900 mb-2">Shipping Policy</h1>
+            {/* <p className="text-lg text-gray-600 mb-2">
               Last Updated: January 2024
-            </p>
+            </p> */}
             <p className="text-gray-600">
-              At Growing Players, we're committed to delivering your orders safely and promptly. Here's everything you need to know about our shipping policies.
+              At Growing Players, we're committed to delivering your orders safely and promptly. <br /> Here's everything you need to know about our shipping policies.
             </p>
           </div>
 
@@ -88,27 +90,27 @@ const ShippingPolicy = () => {
             <div className="bg-white rounded-lg shadow-md p-6 text-center">
               <Truck className="w-10 h-10 text-primary-600 mx-auto mb-3" />
               <h3 className="font-bold mb-2">Fast Shipping</h3>
-              <p className="text-sm text-gray-600">5-7 days standard, 24hr overnight available</p>
+              <p className="text-sm text-gray-600">5 - 7 days Standard delivery.</p>
             </div>
             <div className="bg-white rounded-lg shadow-md p-6 text-center">
               <Clock className="w-10 h-10 text-primary-600 mx-auto mb-3" />
               <h3 className="font-bold mb-2">Real-time Tracking</h3>
-              <p className="text-sm text-gray-600">Track your order every step of the way</p>
+              <p className="text-sm text-gray-600">Track your order every step of the way.</p>
             </div>
             <div className="bg-white rounded-lg shadow-md p-6 text-center">
               <Shield className="w-10 h-10 text-primary-600 mx-auto mb-3" />
               <h3 className="font-bold mb-2">Fully Insured</h3>
-              <p className="text-sm text-gray-600">All packages insured against damage or loss</p>
+              <p className="text-sm text-gray-600">All packages insured against damage or loss.</p>
             </div>
             <div className="bg-white rounded-lg shadow-md p-6 text-center">
-              <DollarSign className="w-10 h-10 text-primary-600 mx-auto mb-3" />
+              <BiRupee className="w-10 h-10 text-primary-600 mx-auto mb-3" />
               <h3 className="font-bold mb-2">Free Shipping</h3>
-              <p className="text-sm text-gray-600">On orders over $100</p>
+              <p className="text-sm text-gray-600">On orders over ₹500.</p>
             </div>
           </div>
 
           {/* Shipping Rates */}
-          <div className="mb-12">
+          {/* <div className="mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-6">Shipping Rates & Methods</h2>
             <div className="space-y-4">
               {shippingRegions.map((region, idx) => (
@@ -137,35 +139,35 @@ const ShippingPolicy = () => {
                 </div>
               ))}
             </div>
-          </div>
+          </div> */}
 
           {/* Shipping Details */}
-          <div className="mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-6">Shipping Details</h2>
+          <div className="mb-12 ">
+            <h2 className="text-3xl text-center font-bold text-gray-900 mb-6">Shipping Details</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="bg-white rounded-lg shadow-md p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-4">Processing Time</h3>
-                <ul className="space-y-2 text-gray-700">
-                  <li>• Orders are processed within 1-2 business days</li>
-                  <li>• Rush processing available for select items (+$10)</li>
-                  <li>• Orders placed on weekends are processed Monday</li>
-                  <li>• Holiday orders may take slightly longer</li>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">Processing Time</h3>
+                <ul className=" text-gray-700">
+                  <li>• Orders are processed within 1-2 business days.</li>
+                  <li>• Rush processing available for select items.</li>
+                  <li>• Orders placed on weekends are processed Monday.</li>
+                  <li>• Holiday orders may take slightly longer.</li>
                 </ul>
               </div>
 
               <div className="bg-white rounded-lg shadow-md p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-4">Tracking & Notifications</h3>
-                <ul className="space-y-2 text-gray-700">
-                  <li>• Tracking number emailed when order ships</li>
-                  <li>• Real-time tracking updates via email/SMS</li>
-                  <li>• Delivery confirmation sent upon arrival</li>
-                  <li>• SMS alerts available (opt-in during checkout)</li>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">Tracking & Notifications</h3>
+                <ul className=" text-gray-700">
+                  <li>• Tracking number emailed when order ships.</li>
+                  <li>• Real-time tracking updates via email/SMS.</li>
+                  <li>• Delivery confirmation sent upon arrival.</li>
+                  <li>• SMS alerts available (opt-in during checkout).</li>
                 </ul>
               </div>
 
               <div className="bg-white rounded-lg shadow-md p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-4">Packaging</h3>
-                <ul className="space-y-2 text-gray-700">
+                <h3 className="text-xl font-bold text-gray-900 mb-2">Packaging</h3>
+                <ul className=" text-gray-700">
                   <li>• Eco-friendly, recyclable packaging</li>
                   <li>• Bubble wrap and padding for protection</li>
                   <li>• Perishables ship in insulated boxes</li>
@@ -174,12 +176,12 @@ const ShippingPolicy = () => {
               </div>
 
               <div className="bg-white rounded-lg shadow-md p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-4">Delivery Signature</h3>
-                <ul className="space-y-2 text-gray-700">
-                  <li>• No signature required for standard shipping</li>
-                  <li>• Signature required for orders over $500</li>
-                  <li>• High-value items may require signature</li>
-                  <li>• Contact carrier to arrange alternate delivery</li>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">Delivery Signature</h3>
+                <ul className=" text-gray-700">
+                  <li>• No signature required for standard shipping.</li>
+                  <li>• Signature required for orders over ₹500.</li>
+                  <li>• High-value items may require signature.</li>
+                  <li>• Contact carrier to arrange alternate delivery.</li>
                 </ul>
               </div>
             </div>
@@ -187,8 +189,8 @@ const ShippingPolicy = () => {
 
           {/* Risk & Liability */}
           <div className="bg-white rounded-lg shadow-md p-8 mb-12">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Risk of Loss & Insurance</h2>
-            <div className="space-y-4 text-gray-700">
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">Risk of Loss & Insurance</h2>
+            <div className=" text-gray-700">
               <p>
                 <strong>Risk Transfer:</strong> Risk of loss transfers to you upon delivery to the carrier. You are responsible for inspecting packages upon receipt.
               </p>
@@ -198,11 +200,11 @@ const ShippingPolicy = () => {
               <p>
                 <strong>Claims Process:</strong> If your package arrives damaged or lost:
               </p>
-              <ul className="list-disc list-inside space-y-2 ml-4">
-                <li>Contact us within 48 hours of delivery</li>
-                <li>Provide photos of the damage and packaging</li>
-                <li>Keep the damaged item and packaging</li>
-                <li>We will file a claim or arrange replacement</li>
+              <ul className="list-disc list-inside ml-4">
+                <li>Contact us within 48 hours of delivery.</li>
+                <li>Provide photos of the damage and packaging.</li>
+                <li>Keep the damaged item and packaging.</li>
+                <li>We will file a claim or arrange replacement.</li>
               </ul>
               <p>
                 <strong>Liability Limit:</strong> Our liability is limited to the cost of the item, not including lost profits or consequential damages.
@@ -212,29 +214,23 @@ const ShippingPolicy = () => {
 
           {/* Special Shipping Circumstances */}
           <div className="bg-white rounded-lg shadow-md p-8 mb-12">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Special Circumstances</h2>
-            <div className="space-y-4 text-gray-700">
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">Special Circumstances</h2>
+            <div className=" text-gray-700">
               <div>
-                <h3 className="font-bold mb-2">Perishable Items</h3>
-                <p>Food items and perishables are shipped via Express or Overnight mail with special insulation. Additional charges may apply. These items are non-refundable once delivered but will be replaced if damaged upon arrival.</p>
+                <strong>Fragile Items: </strong>Delicate decorative items are packaged with extra care and padding. We recommend Express shipping to minimize handling time. Damage claims must be reported within 48 hours with photos.
               </div>
               <div>
-                <h3 className="font-bold mb-2">Fragile Items</h3>
-                <p>Delicate decorative items are packaged with extra care and padding. We recommend Express shipping to minimize handling time. Damage claims must be reported within 48 hours with photos.</p>
+                <strong>Bulk Orders: </strong>Orders over 50 kg may require commercial shipping. We'll contact you with shipping costs and options. Bulk orders may take 3-5 business days to process.
               </div>
               <div>
-                <h3 className="font-bold mb-2">Bulk Orders</h3>
-                <p>Orders over 50 lbs may require commercial shipping. We'll contact you with shipping costs and options. Bulk orders may take 3-5 business days to process.</p>
-              </div>
-              <div>
-                <h3 className="font-bold mb-2">Weather Delays</h3>
-                <p>We are not responsible for delays caused by severe weather, natural disasters, or carrier strikes. Shipping timeframes exclude these external factors.</p>
+                <strong>Weather Delays: </strong>We are not responsible for delays caused by severe weather, natural disasters, or carrier strikes. Shipping timeframes exclude these external factors.
               </div>
             </div>
+
           </div>
 
           {/* FAQs */}
-          <div className="mb-12">
+          {/* <div className="mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-6">Frequently Asked Questions</h2>
             <div className="space-y-4">
               {faqs.map((faq, idx) => (
@@ -244,7 +240,7 @@ const ShippingPolicy = () => {
                 </div>
               ))}
             </div>
-          </div>
+          </div> */}
 
           {/* Contact */}
           <div className="bg-primary-600 text-white rounded-lg p-8 text-center">

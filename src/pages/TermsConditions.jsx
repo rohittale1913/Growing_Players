@@ -8,9 +8,7 @@ const TermsConditions = () => {
   const sections = [
     {
       title: '1. Acceptance of Terms',
-      content: `By accessing and using the Growing Players website (the "Site") and services, you agree to be bound by these Terms & Conditions. If you do not agree to any part of these terms, please do not use our Site or services.
-
-These terms apply to all users, including but not limited to browsers, customers, vendors, and contributors of content. If you do not accept our terms, please stop using the Site immediately.`,
+      content: `By accessing and using the Growing Players website (the "Site") and services, you agree to be bound by these Terms & Conditions. If you do not agree to any part of these terms, please do not use our Site or services. These terms apply to all users, including but not limited to browsers, customers, vendors, and contributors of content. If you do not accept our terms, please stop using the Site immediately.`,
     },
     {
       title: '2. User Accounts',
@@ -18,7 +16,6 @@ These terms apply to all users, including but not limited to browsers, customers
 • You are responsible for providing accurate and complete information during registration.
 • You are responsible for maintaining the confidentiality of your password and account.
 • You agree to accept responsibility for all activity under your account.
-• You must be at least 18 years old or have parental consent to create an account.
 
 Account Termination:
 • We reserve the right to suspend or terminate accounts that violate these terms.
@@ -39,7 +36,7 @@ Availability:
 • We will notify you if an item is out of stock before charging your payment method.
 
 Pricing:
-• All prices are in USD unless otherwise specified.
+• All prices are in Indian Currency unless otherwise specified.
 • Prices are subject to change without notice.
 • We reserve the right to refuse orders at our discretion.`,
     },
@@ -51,11 +48,11 @@ Pricing:
 • Order confirmation will be sent to your email address.
 
 Payment:
-• We accept major credit cards, debit cards, PayPal, and other payment methods as displayed.
+• We accept major credit cards, debit cards, UPI and other payment methods as displayed.
 • You authorize us to charge your payment method for the full order amount.
 • All payment information is processed securely through third-party payment processors.
 • You are responsible for all charges associated with your account.
-• Fraudulent or unauthorized transactions must be reported within 30 days.
+• Fraudulent or unauthorized transactions must be reported within 48 hours.
 
 Taxes & Fees:
 • Sales tax is calculated based on your shipping address.
@@ -65,7 +62,7 @@ Taxes & Fees:
     {
       title: '5. Shipping & Delivery',
       content: `Shipping:
-• We ship to addresses within the continental United States.
+• We ship to addresses within the India.
 • Shipping timeframes are estimates and not guarantees.
 • We are not responsible for delays caused by carriers or weather.
 • International shipping may be available for select items (see Shipping Policy).
@@ -83,7 +80,7 @@ Delivery Address:
     {
       title: '6. Returns & Refunds',
       content: `Return Policy:
-• Most items can be returned within 30 days of purchase in original, unused condition.
+• Most items can be returned within 7 days of purchase in original, unused condition.
 • Food items and perishables are non-returnable due to health and safety regulations.
 • Custom or made-to-order items may have different return policies.
 • Return shipping cost is the responsibility of the customer unless the item is defective.
@@ -131,38 +128,7 @@ Trademarks:
 • You may not use our trademarks without prior written permission.`,
     },
     {
-      title: '9. Limitation of Liability',
-      content: `Disclaimer:
-• The Site and all content are provided on an "AS IS" and "AS AVAILABLE" basis.
-• We make no representations or warranties of any kind, express or implied.
-• We do not warrant that the Site will be uninterrupted, timely, secure, or error-free.
-
-Liability Limits:
-• TO THE FULLEST EXTENT PERMITTED BY LAW, GROWING PLAYERS SHALL NOT BE LIABLE FOR:
-  - Indirect, incidental, consequential, or punitive damages
-  - Loss of profits, revenue, data, or business opportunities
-  - Damage to reputation or goodwill
-  - Any damages arising from your use or inability to use the Site
-
-• Our total liability shall not exceed the amount you paid for your order.
-
-This limitation applies even if we have been advised of the possibility of such damages.`,
-    },
-    {
-      title: '10. Indemnification',
-      content: `You agree to indemnify, defend, and hold harmless Growing Players, its officers, directors, employees, and agents from and against any claims, damages, losses, liabilities, or expenses (including attorneys' fees) arising from:
-
-• Your violation of these terms
-• Your use of the Site or services
-• Your infringement of any intellectual property rights
-• Your violation of any law or third-party rights
-• Any content you submit or create
-• Any disputes with other users
-
-We will provide you with prompt notice of any such claim and reasonable cooperation in your defense.`,
-    },
-    {
-      title: '11. Prohibited Conduct',
+      title: '9. Prohibited Conduct',
       content: `You agree not to:
 • Use the Site for illegal purposes or in violation of any laws.
 • Harass, threaten, or defame any user or staff member.
@@ -178,22 +144,14 @@ We will provide you with prompt notice of any such claim and reasonable cooperat
 Violations may result in account suspension or termination and legal action.`,
     },
     {
-      title: '12. Third-Party Links',
-      content: `Our Site may contain links to third-party websites. We are not responsible for the content, accuracy, or practices of external sites. Your use of third-party sites is at your own risk and subject to their terms and privacy policies.
-
-We do not endorse any third-party websites or services unless explicitly stated. You should review the terms and privacy policies of any external site before providing your information.`,
+      title: '10. Third-Party Links',
+      content: `Our Site may contain links to third-party websites. We are not responsible for the content, accuracy, or practices of external sites. Your use of third-party sites is at your own risk and subject to their terms and privacy policies. We do not endorse any third-party websites or services unless explicitly stated. You should review the terms and privacy policies of any external site before providing your information.`,
     },
     {
-      title: '13. Dispute Resolution',
+      title: '11. Dispute Resolution',
       content: `Informal Resolution:
 • In the event of a dispute, we encourage you to contact us at support@growingplayers.com.
 • We will make good faith efforts to resolve disputes within 30 days.
-
-Binding Arbitration:
-• Any dispute that cannot be resolved informally shall be resolved by binding arbitration.
-• Arbitration will be conducted under the rules of the American Arbitration Association (AAA).
-• Each party will bear its own legal fees unless the arbitrator awards fees to the prevailing party.
-• Arbitration will be held in San Francisco, California.
 
 Class Action Waiver:
 • You agree that disputes will be resolved individually, not as part of any class action.
@@ -204,29 +162,20 @@ Exceptions:
 • We may pursue claims in small claims court if the amount is within small claims jurisdiction.`,
     },
     {
-      title: '14. Modifications to Terms',
-      content: `We reserve the right to modify these Terms & Conditions at any time. Changes will be effective immediately upon posting to the Site. Your continued use of the Site following any changes constitutes your acceptance of the updated terms.
-
-We will notify you of material changes via email or prominent notice on our Site. If you do not agree to the changes, please stop using the Site immediately.`,
+      title: '12. Modifications to Terms',
+      content: `We reserve the right to modify these Terms & Conditions at any time. Changes will be effective immediately upon posting to the Site. Your continued use of the Site following any changes constitutes your acceptance of the updated terms. We will notify you of material changes via email or prominent notice on our Site. If you do not agree to the changes, please stop using the Site immediately.`,
     },
     {
-      title: '15. Governing Law',
-      content: `These Terms & Conditions shall be governed by and construed in accordance with the laws of the State of California, without regard to its conflict of law provisions.
-
-Any legal proceedings arising from or related to these terms shall be subject to the jurisdiction and venue of the state and federal courts located in San Francisco, California.`,
+      title: '13. Governing Law',
+      content: `These Terms & Conditions shall be governed by and construed in accordance with the laws, without regard to its conflict of law provisions. Any legal proceedings arising from or related to these terms shall be subject to the jurisdiction and venue of the state.`,
     },
     {
-      title: '16. Contact Information',
+      title: '14. Contact Information',
       content: `If you have questions or concerns regarding these Terms & Conditions, please contact us:
-
 Email: legal@growingplayers.com
-Phone: 1-800-GROWING (1-800-476-8946)
+Phone: 1800-1234-5678
 Mailing Address:
-Growing Players
-Legal Department
-123 Bakery Lane
-San Francisco, CA 94103
-USA
+Growing Players, 123 Bakery Lane, San Francisco, CA 94103, USA.
 
 Response Time: We will respond to inquiries within 7 business days.`,
     },
@@ -234,23 +183,23 @@ Response Time: We will respond to inquiries within 7 business days.`,
 
   return (
     <Layout>
-      <div className="bg-gradient-to-br from-primary-50 via-white to-rose-50 py-12">
+      <div className="font-display bg-gradient-to-br from-primary-50 via-white to-rose-50 py-12">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
-          <div className="mb-12">
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">Terms & Conditions</h1>
-            <p className="text-lg text-gray-600">
+          <div className="mb-10 text-center">
+            <h1 className="text-4xl font-bold text-gray-900 mb-2">Terms & Conditions</h1>
+            {/* <p className="text-lg text-gray-600">
               Last Updated: January 2024
-            </p>
-            <p className="text-gray-600 mt-4">
+            </p> */}
+            <p className="text-gray-600 mt-2">
               Please read these Terms & Conditions carefully before using the Growing Players website and services.
             </p>
           </div>
 
           {/* Quick Navigation */}
           <div className="mb-12">
-            <h2 className="text-2xl font-bold mb-6">Table of Contents</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <h2 className="text-3xl font-bold mb-4">Table of Contents</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
               {sections.map((section, idx) => (
                 <button
                   key={idx}
@@ -258,7 +207,7 @@ Response Time: We will respond to inquiries within 7 business days.`,
                     setActiveSection(idx)
                     document.getElementById(`section-${idx}`)?.scrollIntoView({ behavior: 'smooth' })
                   }}
-                  className={`text-left p-3 rounded-lg transition-all ${
+                  className={`text-left p-2 rounded-lg transition-all ${
                     activeSection === idx
                       ? 'bg-primary-600 text-white'
                       : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-200'
@@ -278,7 +227,7 @@ Response Time: We will respond to inquiries within 7 business days.`,
                 id={`section-${idx}`}
                 className="bg-white rounded-lg shadow-md p-8 scroll-mt-20"
               >
-                <h2 className="text-2xl font-bold text-gray-900 mb-4">{section.title}</h2>
+                <h2 className="text-2xl font-bold text-gray-900 mb-2">{section.title}</h2>
                 <div className="text-gray-700 whitespace-pre-wrap leading-relaxed">
                   {section.content}
                 </div>

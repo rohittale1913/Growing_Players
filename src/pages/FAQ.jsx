@@ -77,12 +77,12 @@ const FAQ = () => {
         {
           id: 12,
           question: 'What payment methods do you accept?',
-          answer: 'We accept all major credit cards (Visa, Mastercard, American Express), debit cards, PayPal, and Apple Pay. All payments are processed securely through Stripe.'
+          answer: 'We accept all major credit cards (Visa, Mastercard, American Express), debit cards, UPI. All payments are processed securely through RazorPay.'
         },
         {
           id: 13,
           question: 'Is my payment information secure?',
-          answer: 'Yes, absolutely. We use SSL encryption and PCI compliance to protect your data. Payment details are processed through secure third-party providers (Stripe/PayPal) and we never store full card numbers.'
+          answer: 'Yes, absolutely. We use SSL encryption and PCI compliance to protect your data. Payment details are processed through secure third-party providers RazorPay and we never store full card numbers.'
         },
         {
           id: 14,
@@ -92,7 +92,7 @@ const FAQ = () => {
         {
           id: 15,
           question: 'Do you offer gift cards?',
-          answer: 'Yes! Gift cards are available in amounts from $25-$500. Purchase them on our website, and recipients can use them toward any purchase. Gift cards never expire.'
+          answer: 'Yes! Gift cards are available in amounts from ₹500 - ₹1000. Purchase them on our website, and recipients can use them toward any purchase. Gift cards never expire.'
         },
       ]
     },
@@ -102,13 +102,13 @@ const FAQ = () => {
         {
           id: 16,
           question: 'How long does shipping take?',
-          answer: 'Standard shipping takes 5-7 business days (free on orders over $100). Express shipping takes 2-3 business days ($19.99). Overnight shipping available for $39.99. Timeframes begin after processing (1-2 business days).'
+          answer: 'Standard shipping takes 5-7 business days (free on orders over ₹500).'
         },
-        {
-          id: 17,
-          question: 'Do you ship internationally?',
-          answer: 'We ship to select countries including Canada and Mexico. International orders may take 10-21 days and may be subject to customs duties. Check our Shipping Policy for full details and rates.'
-        },
+        // {
+        //   id: 17,
+        //   question: 'Do you ship internationally?',
+        //   answer: 'We ship to select countries including Canada and Mexico. International orders may take 10-21 days and may be subject to customs duties. Check our Shipping Policy for full details and rates.'
+        // },
         {
           id: 18,
           question: 'Can I track my order?',
@@ -132,7 +132,7 @@ const FAQ = () => {
         {
           id: 21,
           question: 'What is your return policy?',
-          answer: 'Most items can be returned within 30 days of purchase in unused, original condition. Food items are non-returnable. Defective items are replaced free. See our Return Policy page for full details.'
+          answer: 'Most items can be returned within 7 days of purchase in unused, original condition. Food items are non-returnable. Defective items are replaced free. See our Return Policy page for full details.'
         },
         {
           id: 22,
@@ -142,7 +142,7 @@ const FAQ = () => {
         {
           id: 23,
           question: 'Who pays for return shipping?',
-          answer: 'For defective or damaged items, we provide a prepaid shipping label. For non-defective returns, you pay return shipping (typically $5-20 depending on weight).'
+          answer: 'For defective or damaged items, we provide a prepaid shipping label. For non-defective returns, you pay return shipping.'
         },
         {
           id: 24,
@@ -152,40 +152,40 @@ const FAQ = () => {
         {
           id: 25,
           question: 'Can I exchange items instead of returning them?',
-          answer: 'Yes! Exchanges are available within 30 days for a different size, color, or product. We provide prepaid return shipping and free standard shipping on the new item.'
+          answer: 'Yes! Exchanges are available within 7 days for a different size, color, or product. We provide prepaid return shipping and free standard shipping on the new item.'
         },
       ]
     },
-    {
-      category: 'Admin & Accounts (Business Users)',
-      questions: [
-        {
-          id: 26,
-          question: 'How do I access the admin dashboard?',
-          answer: 'Admin users can access the dashboard at /admin after logging in with admin credentials. Contact support@growingplayers.com if you need admin access.'
-        },
-        {
-          id: 27,
-          question: 'What can I do in the admin dashboard?',
-          answer: 'Admins can manage products, categories, orders, users, inventory, and view analytics. The dashboard provides complete business management tools.'
-        },
-        {
-          id: 28,
-          question: 'How do I upload product images?',
-          answer: 'In the admin dashboard, go to Products, click "Add Product," and use the image upload field. Drag and drop or click to select JPEG, PNG, or WebP files up to 5MB.'
-        },
-        {
-          id: 29,
-          question: 'Can I set inventory limits?',
-          answer: 'Yes! In the Inventory section of the admin dashboard, set maximum and minimum quantities for each product. The system alerts you when inventory runs low.'
-        },
-        {
-          id: 30,
-          question: 'How do I manage customer orders?',
-          answer: 'Go to Orders in the admin dashboard. You can view all orders, update status, add notes, and filter by date, customer, or status. Customers receive email updates when status changes.'
-        },
-      ]
-    },
+    // {
+    //   category: 'Admin & Accounts (Business Users)',
+    //   questions: [
+    //     {
+    //       id: 26,
+    //       question: 'How do I access the admin dashboard?',
+    //       answer: 'Admin users can access the dashboard at /admin after logging in with admin credentials. Contact support@growingplayers.com if you need admin access.'
+    //     },
+    //     {
+    //       id: 27,
+    //       question: 'What can I do in the admin dashboard?',
+    //       answer: 'Admins can manage products, categories, orders, users, inventory, and view analytics. The dashboard provides complete business management tools.'
+    //     },
+    //     {
+    //       id: 28,
+    //       question: 'How do I upload product images?',
+    //       answer: 'In the admin dashboard, go to Products, click "Add Product," and use the image upload field. Drag and drop or click to select JPEG, PNG, or WebP files up to 5MB.'
+    //     },
+    //     {
+    //       id: 29,
+    //       question: 'Can I set inventory limits?',
+    //       answer: 'Yes! In the Inventory section of the admin dashboard, set maximum and minimum quantities for each product. The system alerts you when inventory runs low.'
+    //     },
+    //     {
+    //       id: 30,
+    //       question: 'How do I manage customer orders?',
+    //       answer: 'Go to Orders in the admin dashboard. You can view all orders, update status, add notes, and filter by date, customer, or status. Customers receive email updates when status changes.'
+    //     },
+    //   ]
+    // },
     {
       category: 'Promotions & Discounts',
       questions: [
@@ -202,7 +202,7 @@ const FAQ = () => {
         {
           id: 33,
           question: 'Is the free shipping offer available to everyone?',
-          answer: 'Free standard shipping (5-7 days) is available on all orders over $100. This applies to continental US addresses only.'
+          answer: 'Free standard shipping (6-7 days) is available on all orders over ₹500. This applies to continental US addresses only.'
         },
       ]
     },
@@ -259,10 +259,10 @@ const FAQ = () => {
 
   return (
     <Layout>
-      <div className="bg-gradient-to-br from-primary-50 via-white to-rose-50 py-12">
+      <div className="font-display bg-gradient-to-br from-primary-50 via-white to-rose-50 py-12">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
-          <div className="mb-12 text-center">
+          <div className="mb-10 text-center">
             <h1 className="text-4xl font-bold text-gray-900 mb-4">Frequently Asked Questions</h1>
             <p className="text-lg text-gray-600">
               Can't find the answer you're looking for? Email us at support@growingplayers.com
@@ -275,7 +275,7 @@ const FAQ = () => {
               <div key={sectionIdx} className="bg-white rounded-lg shadow-md overflow-hidden">
                 {/* Section Title */}
                 <div className="bg-primary-600 text-white px-6 py-4">
-                  <h2 className="text-2xl font-bold">{section.category}</h2>
+                  <h2 className="text-2xl ">{section.category}</h2>
                 </div>
 
                 {/* Questions */}
@@ -286,7 +286,7 @@ const FAQ = () => {
                         onClick={() => toggleExpanded(faq.id)}
                         className="w-full px-6 py-4 text-left hover:bg-gray-50 transition-colors flex justify-between items-center group"
                       >
-                        <h3 className="font-semibold text-gray-900 group-hover:text-primary-600 transition-colors">
+                        <h3 className=" text-gray-900 group-hover:text-primary-600 transition-colors">
                           {faq.question}
                         </h3>
                         <ChevronDown
@@ -311,22 +311,22 @@ const FAQ = () => {
 
           {/* Still Need Help */}
           <div className="mt-12 bg-primary-50 border-2 border-primary-200 rounded-lg p-8 text-center">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Still Need Help?</h2>
-            <p className="text-gray-700 mb-6">
-              We're here to help! Reach out to our support team using any of these methods:
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">Still Need Help?</h2>
+            <p className="text-gray-700 mb-2">
+              We're here to help ! Reach out to our support team using any of these methods.
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="bg-white rounded-lg p-4">
+              <div className="bg-white rounded-lg p-2">
                 <p className="font-bold text-gray-900 mb-2">Email</p>
                 <p className="text-primary-600">support@growingplayers.com</p>
               </div>
-              <div className="bg-white rounded-lg p-4">
+              <div className="bg-white rounded-lg p-2">
                 <p className="font-bold text-gray-900 mb-2">Phone</p>
-                <p className="text-primary-600">1-800-GROWING<br />(1-800-476-8946)</p>
+                <p className="text-primary-600">1800-1234-5678</p>
               </div>
-              <div className="bg-white rounded-lg p-4">
+              <div className="bg-white rounded-lg p-2">
                 <p className="font-bold text-gray-900 mb-2">Hours</p>
-                <p className="text-primary-600">Mon-Fri, 9 AM-6 PM PT</p>
+                <p className="text-primary-600">Mon - Sat,<br /> 10 AM - 8 PM IST</p>
               </div>
             </div>
           </div>

@@ -104,7 +104,7 @@ const ResetPassword = () => {
   if (!isValidToken) {
     return (
       <Layout>
-        <div className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-rose-50 py-12">
+        <div className=" font-display min-h-screen bg-gradient-to-br from-primary-50 via-white to-rose-50 py-12">
           <div className="max-w-md mx-auto px-4">
             <div className="bg-white rounded-lg shadow-lg p-8 text-center">
               <AlertCircle className="w-16 h-16 text-red-500 mx-auto mb-4" />
@@ -127,7 +127,7 @@ const ResetPassword = () => {
 
   return (
     <Layout>
-      <div className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-rose-50 py-12">
+      <div className="font-display min-h-screen bg-gradient-to-br from-primary-50 via-white to-rose-50 py-12">
         <div className="max-w-md mx-auto px-4">
           <div className="bg-white rounded-lg shadow-lg p-8">
             {/* Header */}

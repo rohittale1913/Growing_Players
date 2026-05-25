@@ -131,14 +131,14 @@ const Register = () => {
 
   return (
     <Layout>
-      <div className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-rose-50 py-12">
+      <div className="font-display min-h-screen bg-gradient-to-br from-primary-50 via-white to-rose-50 py-12">
         <div className="max-w-md mx-auto px-4">
           <div className="bg-white rounded-lg shadow-lg p-8">
             {/* Header */}
-            <h1 className="heading-h2 text-gray-900 mb-2">Create Account</h1>
-            <p className="text-gray-600 mb-8">
+            <h1 className="heading-h3 text-gray-900 mb-2">Create Account</h1>
+            {/* <p className="text-gray-600 mb-6">
               Join Growing Players and start shopping premium ingredients
-            </p>
+            </p> */}
 
             {/* Error Message */}
             {error && (

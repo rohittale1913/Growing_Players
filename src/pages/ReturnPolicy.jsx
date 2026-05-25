@@ -9,7 +9,7 @@ const ReturnPolicy = () => {
     {
       step: '1',
       title: 'Initiate Return',
-      description: 'Contact support@growingplayers.com within 30 days of purchase with your order number and reason for return.'
+      description: 'Contact support@growingplayers.com within 7 days of purchase with your order number and reason for return.'
     },
     {
       step: '2',
@@ -52,12 +52,12 @@ const ReturnPolicy = () => {
         heading: 'Standard Return Policy',
         description: 'Our standard return window and conditions:',
         details: [
-          'Return Period: 30 days from delivery date',
-          'Condition: Item must be unused and in original packaging',
-          'Refund Amount: Full refund minus original shipping (non-refundable)',
-          'Return Shipping: Paid by customer unless item is defective',
-          'Restocking Fee: No restocking fee applied',
-          'Original Receipt: Not required but helpful',
+          'Return Period: 7 days from delivery date.',
+          'Condition: Item must be unused and in original packaging.',
+          'Refund Amount: Full refund minus original shipping (non-refundable).',
+          'Return Shipping: Paid by customer unless item is defective.',
+          'Restocking Fee: No restocking fee applied.',
+          'Original Receipt: Not required but helpful.',
         ],
       },
     },
@@ -67,12 +67,12 @@ const ReturnPolicy = () => {
         heading: 'Defective or Damaged Items',
         description: 'Items received damaged or with defects:',
         details: [
-          'Report Within: 48 hours of delivery',
-          'Required: Photos showing damage and packaging',
-          'Refund/Replacement: Full refund or free replacement at your choice',
-          'Return Shipping: We pay return shipping',
-          'Expedited Replacement: Available for defective items',
-          'No Questions Asked: We believe you about damage/defects',
+          'Report Within: 48 hours of delivery.',
+          'Required: Photos showing damage and packaging.',
+          'Refund/Replacement: Full refund or free replacement at your choice.',
+          'Return Shipping: We pay return shipping.',
+          'Expedited Replacement: Available for defective items.',
+          'No Questions Asked: We believe you about damage/defects.',
         ],
       },
     },
@@ -82,12 +82,11 @@ const ReturnPolicy = () => {
         heading: 'Item Exchanges',
         description: 'Swap your item for a different size, color, or product:',
         details: [
-          'Exchange Window: 30 days from delivery',
-          'Condition: Item must be unused',
-          'Shipping: Free standard shipping on exchanges',
-          'Process: Same as return but with new item shipped',
-          'Size/Color Changes: Often processed within 5 business days',
-          'Upgrade/Downgrade: Price difference charged or refunded',
+          'Exchange Window: 7 days from delivery.',
+          'Condition: Item must be unused.',
+          'Shipping: Free standard shipping on exchanges.',
+          'Process: Same as return but with new item shipped.',
+          'Size/Color Changes: Often processed within 5 business days.',
         ],
       },
     },
@@ -97,12 +96,11 @@ const ReturnPolicy = () => {
         heading: 'Refund Processing Timeline',
         description: 'After your return is approved:',
         details: [
-          'Refund Issued: Within 7 business days of approval',
-          'Credit Time: 1-2 additional billing cycles to appear',
-          'Method: Refunded to original payment method',
-          'Partial Refunds: For items with restocking fees',
-          'Refund Status: Check your account or email us',
-          'Issues: Contact support if refund doesn\'t appear in 14 days',
+          'Refund Issued: Within 7 business days of approval.',
+          'Credit Time: 1-2 additional billing cycles to appear.',
+          'Method: Refunded to original payment method.',
+          'Refund Status: Check your account or email us.',
+          'Issues: Contact support if refund doesn\'t appear in 14 days.',
         ],
       },
     },
@@ -110,38 +108,38 @@ const ReturnPolicy = () => {
 
   return (
     <Layout>
-      <div className="bg-gradient-to-br from-primary-50 via-white to-rose-50 py-12">
+      <div className="font-display bg-gradient-to-br from-primary-50 via-white to-rose-50 py-12">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
-          <div className="mb-12">
+          <div className="mb-10 text-center">
             <h1 className="text-4xl font-bold text-gray-900 mb-4">Return Policy</h1>
-            <p className="text-lg text-gray-600 mb-2">
+            {/* <p className="text-lg text-gray-600 mb-2">
               Last Updated: January 2024
-            </p>
+            </p> */}
             <p className="text-gray-600">
-              We stand behind the quality of our products. If you're not satisfied, we make returns easy and hassle-free.
+              We stand behind the quality of our products. <br /> If you're not satisfied, we make returns easy and hassle-free.
             </p>
           </div>
 
           {/* Quick Overview */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
             <div className="bg-green-50 border-l-4 border-green-500 p-6 rounded-lg">
-              <h3 className="font-bold text-gray-900 mb-2">30-Day Returns</h3>
-              <p className="text-gray-700">Return most items within 30 days for a refund</p>
+              <h3 className="font-bold text-gray-900 mb-2">7 - Day Returns</h3>
+              <p className="text-gray-700">Return most items within 30 days for a refund.</p>
             </div>
             <div className="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg">
               <h3 className="font-bold text-gray-900 mb-2">Free Replacements</h3>
-              <p className="text-gray-700">Defective items replaced free, including shipping</p>
+              <p className="text-gray-700">Defective items replaced free, including shipping.</p>
             </div>
             <div className="bg-purple-50 border-l-4 border-purple-500 p-6 rounded-lg">
               <h3 className="font-bold text-gray-900 mb-2">Easy Process</h3>
-              <p className="text-gray-700">Simple steps to request a return or exchange</p>
+              <p className="text-gray-700">Simple steps to request a return or exchange.</p>
             </div>
           </div>
 
           {/* Return Process */}
           <div className="mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-8">How to Return an Item</h2>
+            <h2 className="text-3xl font-bold text-gray-900 mb-8">How to Return an Item ?</h2>
             <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
               {returnProcess.map((item, idx) => (
                 <div key={idx} className="bg-white rounded-lg shadow-md p-6 text-center relative">
@@ -177,11 +175,11 @@ const ReturnPolicy = () => {
             </div>
 
             <div className="bg-white rounded-lg shadow-md p-8">
-              <h3 className="text-2xl font-bold text-gray-900 mb-3">
+              <h3 className="text-2xl font-bold text-gray-900 mb-2">
                 {tabs[activeTab].content.heading}
               </h3>
-              <p className="text-gray-600 mb-6">{tabs[activeTab].content.description}</p>
-              <ul className="space-y-3">
+              {/* <p className="text-gray-600 mb-4">{tabs[activeTab].content.description}</p> */}
+              <ul className="space-y-1">
                 {tabs[activeTab].content.details.map((detail, idx) => (
                   <li key={idx} className="flex items-start gap-3">
                     <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
@@ -193,7 +191,7 @@ const ReturnPolicy = () => {
           </div>
 
           {/* Non-Returnable Items */}
-          <div className="bg-red-50 border-l-4 border-red-500 p-8 rounded-lg mb-12">
+          {/* <div className="bg-red-50 border-l-4 border-red-500 p-8 rounded-lg mb-12">
             <div className="flex items-start gap-4">
               <AlertCircle className="w-6 h-6 text-red-600 flex-shrink-0 mt-1" />
               <div>
@@ -211,7 +209,7 @@ const ReturnPolicy = () => {
                 </ul>
               </div>
             </div>
-          </div>
+          </div> */}
 
           {/* Return Conditions */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
@@ -220,14 +218,14 @@ const ReturnPolicy = () => {
                 <CheckCircle2 className="w-6 h-6 text-green-500" />
                 Returnable Condition
               </h3>
-              <ul className="space-y-3 text-gray-700">
-                <li>✓ Unused and in original condition</li>
-                <li>✓ Original packaging intact and undamaged</li>
-                <li>✓ All original seals and labels present</li>
-                <li>✓ No signs of use or testing</li>
-                <li>✓ Purchased within 30 days</li>
-                <li>✓ Original receipt or order confirmation</li>
-                <li>✓ No visible damage from customer</li>
+              <ul className="space-y-1 text-gray-700">
+                <li>✓ Unused and in original condition.</li>
+                <li>✓ Original packaging intact and undamaged.</li>
+                <li>✓ All original seals and labels present.</li>
+                <li>✓ No signs of use or testing.</li>
+                <li>✓ Purchased within 7 days.</li>
+                <li>✓ Original receipt or order confirmation.</li>
+                <li>✓ No visible damage from customer.</li>
               </ul>
             </div>
 
@@ -236,20 +234,20 @@ const ReturnPolicy = () => {
                 <AlertCircle className="w-6 h-6 text-red-500" />
                 Non-Returnable Condition
               </h3>
-              <ul className="space-y-3 text-gray-700">
-                <li>✗ Opened, used, or tested</li>
-                <li>✗ Original packaging damaged or missing</li>
-                <li>✗ Seals or labels removed or tampered with</li>
-                <li>✗ More than 30 days since purchase</li>
-                <li>✗ Customer-inflicted damage</li>
-                <li>✗ No proof of purchase available</li>
-                <li>✗ Clearance or final sale items</li>
+              <ul className="space-y-1 text-gray-700">
+                <li>✗ Opened, used, or tested.</li>
+                <li>✗ Original packaging damaged or missing.</li>
+                <li>✗ Seals or labels removed or tampered.</li>
+                <li>✗ More than 7 days since purchase.</li>
+                <li>✗ Customer-inflicted damage.</li>
+                <li>✗ No proof of purchase available.</li>
+                <li>✗ Clearance or final sale items.</li>
               </ul>
             </div>
           </div>
 
           {/* FAQs */}
-          <div className="mb-12">
+          {/* <div className="mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-6">Return FAQs</h2>
             <div className="space-y-4">
               <div className="bg-white rounded-lg shadow-md p-6">
@@ -274,7 +272,7 @@ const ReturnPolicy = () => {
 
               <div className="bg-white rounded-lg shadow-md p-6">
                 <h3 className="font-bold text-gray-900 mb-2">Can I exchange an item for a different size or color?</h3>
-                <p className="text-gray-700">Yes! Exchanges are available within 30 days for a different size, color, or product. Return your item, and we'll ship the new item with free standard shipping. If there's a price difference, we'll adjust accordingly.</p>
+                <p className="text-gray-700">Yes! Exchanges are available within 7 days for a different size, color, or product. Return your item, and we'll ship the new item with free standard shipping. If there's a price difference, we'll adjust accordingly.</p>
               </div>
 
               <div className="bg-white rounded-lg shadow-md p-6">
@@ -282,17 +280,17 @@ const ReturnPolicy = () => {
                 <p className="text-gray-700">Custom items are made specifically for you and cannot be returned unless defective. If you have concerns about a custom order, contact us before completing the order to discuss options.</p>
               </div>
             </div>
-          </div>
+          </div> */}
 
           {/* Contact */}
           <div className="bg-primary-600 text-white rounded-lg p-8 text-center">
             <RotateCcw className="w-12 h-12 mx-auto mb-4" />
-            <h2 className="text-2xl font-bold mb-4">Need Help with a Return?</h2>
-            <p className="mb-6">Our customer service team is here to help make your return easy.</p>
-            <div className="space-y-2 mb-6">
-              <p>Email: returns@growingplayers.com</p>
-              <p>Phone: 1-800-GROWING (1-800-476-8946)</p>
-              <p>Hours: Monday - Friday, 9 AM - 6 PM PT</p>
+            <h2 className="text-2xl font-bold mb-2">Need Help with a Return?</h2>
+            <p className="mb-2">Our customer service team is here to help make your return easy.</p>
+            <div className="space-y-2 mb-4">
+              Email: returns@growingplayers.com <br />
+              Phone: 1800-1234-5678 <br />
+              Hours: Mon - Sat, 10 AM - 8 PM IST
             </div>
             <button className="bg-white text-primary-600 font-bold px-6 py-2 rounded-lg hover:bg-gray-100 transition-colors">
               Start a Return
