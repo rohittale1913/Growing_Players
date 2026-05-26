@@ -23,6 +23,22 @@ const AdminProducts = () => {
     category_id: '',
     stock: '',
     image: '',
+    manufactured_packed_by_name: '',
+    manufactured_packed_by_address: '',
+    manufactured_lic_no: '',
+    marketed_by_name: '',
+    marketed_by_address: '',
+    marketed_lic_no: '',
+    product_dimensions: '',
+    date_first_available: '',
+    item_weight: '',
+    item_model_number: '',
+    net_quantity: '',
+    country_of_origin: '',
+    included_components: '',
+    generic_name: '',
+    asin: '',
+    sku: '',
   })
   const [imageFile, setImageFile] = useState(null)
   const [imagePreview, setImagePreview] = useState('')
@@ -63,6 +79,22 @@ const AdminProducts = () => {
         category_id: product.category_id || '',
         stock: product.stock || '',
         image: product.image || '',
+        manufactured_packed_by_name: product.manufactured_packed_by_name || '',
+        manufactured_packed_by_address: product.manufactured_packed_by_address || '',
+        manufactured_lic_no: product.manufactured_lic_no || '',
+        marketed_by_name: product.marketed_by_name || '',
+        marketed_by_address: product.marketed_by_address || '',
+        marketed_lic_no: product.marketed_lic_no || '',
+        product_dimensions: product.product_dimensions || '',
+        date_first_available: product.date_first_available || '',
+        item_weight: product.item_weight || '',
+        item_model_number: product.item_model_number || '',
+        net_quantity: product.net_quantity || '',
+        country_of_origin: product.country_of_origin || '',
+        included_components: product.included_components || '',
+        generic_name: product.generic_name || '',
+        asin: product.asin || '',
+        sku: product.sku || '',
       })
       setImagePreview(product.image || '')
     } else {
@@ -74,6 +106,22 @@ const AdminProducts = () => {
         category_id: '',
         stock: '',
         image: '',
+        manufactured_packed_by_name: '',
+        manufactured_packed_by_address: '',
+        manufactured_lic_no: '',
+        marketed_by_name: '',
+        marketed_by_address: '',
+        marketed_lic_no: '',
+        product_dimensions: '',
+        date_first_available: '',
+        item_weight: '',
+        item_model_number: '',
+        net_quantity: '',
+        country_of_origin: '',
+        included_components: '',
+        generic_name: '',
+        asin: '',
+        sku: '',
       })
     }
     setShowModal(true)
@@ -175,7 +223,7 @@ const AdminProducts = () => {
 
   return (
     <AdminLayout>
-      <div className="space-y-6">
+      <div className="space-y-6 font-display">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0 }}
@@ -348,6 +396,8 @@ const AdminProducts = () => {
                 </div>
 
                 <form onSubmit={handleSubmit} className="p-6 space-y-4">
+                {/* Product Name and Category Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {/* Product Name */}
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -442,6 +492,96 @@ const AdminProducts = () => {
                       />
                     </div>
                   </div>
+                </div>
+
+                  {/* Manufacturer Details */}
+                  <div className="border-t-2 border-gray-200 pt-4 mt-4">
+                    <h3 className="font-semibold text-gray-900 mb-4">Manufacturer & Marketing Details</h3>
+                    
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Manufactured & Packed By (Name)
+                      </label>
+                      <input
+                        type="text"
+                        name="manufactured_packed_by_name"
+                        value={formData.manufactured_packed_by_name}
+                        onChange={handleChange}
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                        placeholder="e.g., ROSIER FOODS PVT. LTD."
+                      />
+                    </div>
+
+                    <div className="mt-3">
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Manufactured Address
+                      </label>
+                      <textarea
+                        name="manufactured_packed_by_address"
+                        value={formData.manufactured_packed_by_address}
+                        onChange={handleChange}
+                        rows="2"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                        placeholder="Enter complete address"
+                      />
+                    </div>
+
+                    <div className="mt-3">
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Manufacturing License Number
+                      </label>
+                      <input
+                        type="text"
+                        name="manufactured_lic_no"
+                        value={formData.manufactured_lic_no}
+                        onChange={handleChange}
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                        placeholder="e.g., 12724051000040"
+                      />
+                    </div>
+
+                    <div className="mt-4 pt-4 border-t border-gray-200">
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Marketed By (Name)
+                      </label>
+                      <input
+                        type="text"
+                        name="marketed_by_name"
+                        value={formData.marketed_by_name}
+                        onChange={handleChange}
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                        placeholder="e.g., ROSIER FOODS PVT. LTD."
+                      />
+                    </div>
+
+                    <div className="mt-3">
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Marketed By Address
+                      </label>
+                      <textarea
+                        name="marketed_by_address"
+                        value={formData.marketed_by_address}
+                        onChange={handleChange}
+                        rows="2"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                        placeholder="Enter complete address"
+                      />
+                    </div>
+
+                    <div className="mt-3">
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Marketing License Number
+                      </label>
+                      <input
+                        type="text"
+                        name="marketed_lic_no"
+                        value={formData.marketed_lic_no}
+                        onChange={handleChange}
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                        placeholder="e.g., 10021011000233"
+                      />
+                    </div>
+                  </div>
 
                   {/* Image Upload */}
                   <div>
@@ -503,6 +643,155 @@ const AdminProducts = () => {
                         Current image: {formData.image.split('/').pop()}
                       </p>
                     )}
+                  </div>
+
+                  {/* Additional Product Details */}
+                  <div className="border-t-2 border-gray-200 pt-4 mt-4">
+                    <h3 className="font-semibold text-gray-900 mb-4">Additional Product Details</h3>
+                    
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          ASIN / Identifier
+                        </label>
+                        <input
+                          type="text"
+                          name="asin"
+                          value={formData.asin}
+                          onChange={handleChange}
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                          placeholder="e.g., B0BDVG99J5"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          SKU
+                        </label>
+                        <input
+                          type="text"
+                          name="sku"
+                          value={formData.sku}
+                          onChange={handleChange}
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                          placeholder="e.g., CL1038M"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-4 mt-3">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Product Dimensions
+                        </label>
+                        <input
+                          type="text"
+                          name="product_dimensions"
+                          value={formData.product_dimensions}
+                          onChange={handleChange}
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                          placeholder="e.g., 4.9 x 3.9 x 15.99 cm"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Item Weight
+                        </label>
+                        <input
+                          type="text"
+                          name="item_weight"
+                          value={formData.item_weight}
+                          onChange={handleChange}
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                          placeholder="e.g., 120 g"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-4 mt-3">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Item Model Number
+                        </label>
+                        <input
+                          type="text"
+                          name="item_model_number"
+                          value={formData.item_model_number}
+                          onChange={handleChange}
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                          placeholder="e.g., CL1038M"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Net Quantity
+                        </label>
+                        <input
+                          type="text"
+                          name="net_quantity"
+                          value={formData.net_quantity}
+                          onChange={handleChange}
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                          placeholder="e.g., 100.0 Grams"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-4 mt-3">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Country of Origin
+                        </label>
+                        <input
+                          type="text"
+                          name="country_of_origin"
+                          value={formData.country_of_origin}
+                          onChange={handleChange}
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                          placeholder="e.g., India"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Date First Available
+                        </label>
+                        <input
+                          type="text"
+                          name="date_first_available"
+                          value={formData.date_first_available}
+                          onChange={handleChange}
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                          placeholder="e.g., 10 September 2022"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="mt-3">
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Generic Name / Product Type
+                      </label>
+                      <input
+                        type="text"
+                        name="generic_name"
+                        value={formData.generic_name}
+                        onChange={handleChange}
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                        placeholder="e.g., Face Moisturizer & Day Cream"
+                      />
+                    </div>
+
+                    <div className="mt-3">
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Included Components
+                      </label>
+                      <textarea
+                        name="included_components"
+                        value={formData.included_components}
+                        onChange={handleChange}
+                        rows="2"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                        placeholder="e.g., Skin Moisturizer"
+                      />
+                    </div>
                   </div>
 
                   {/* Buttons */}

@@ -1,18 +1,21 @@
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import { ArrowRight, Sparkles, Heart, Truck, Award, Star, Eye } from 'lucide-react'
+import { ArrowRight, Sparkles, Heart, Truck, Award, Star, Eye, Mail } from 'lucide-react'
 import Layout from '../layouts/MainLayout'
 import ProductCard from '../components/ProductCard'
 import CategoryCard from '../components/CategoryCard'
 import { SkeletonLoader } from '../components/Loaders'
-import { productAPI, categoryAPI } from '../services/api'
+import { productAPI, categoryAPI, newsletterAPI } from '../services/api'
 import { useState, useEffect } from 'react'
-import homePicture from "../assets/homePicture.png";
+import homePicture from "../assets/homePicture.png"
+import toast from 'react-hot-toast'
 
 const Home = () => {
   const [featuredProducts, setFeaturedProducts] = useState([])
   const [categories, setCategories] = useState([])
   const [loading, setLoading] = useState(true)
+  const [newsletter, setNewsletter] = useState('')
+  const [subscribing, setSubscribing] = useState(false)
 
   // Fetch real data from Supabase
   useEffect(() => {
@@ -37,6 +40,25 @@ const Home = () => {
 
     fetchData()
   }, [])
+
+  const handleNewsletterSubmit = async (e) => {
+    e.preventDefault()
+    
+    if (!newsletter.trim()) {
+      toast.error('Please enter your email')
+      return
+    }
+
+    setSubscribing(true)
+    try {
+      await newsletterAPI.subscribe(newsletter)
+      setNewsletter('')
+    } catch (error) {
+      console.error('Newsletter subscription error:', error)
+    } finally {
+      setSubscribing(false)
+    }
+  }
 
   const testimonials = [
     {
@@ -395,17 +417,21 @@ const Home = () => {
             <p className="font-display text-white/90 text-lg mb-8">
               Get exclusive deals, new product launches, and baking tips delivered to your inbox
             </p>
-            <form className="font-display flex flex-col sm:flex-row gap-3">
+            <form className="font-display flex flex-col sm:flex-row gap-3" onSubmit={handleNewsletterSubmit}>
               <input
                 type="email"
                 placeholder="Enter your email"
+                value={newsletter}
+                onChange={(e) => setNewsletter(e.target.value)}
                 className="flex-1 px-6 py-3 rounded-lg text-gray-900 focus:outline-none"
+                disabled={subscribing}
               />
               <button
                 type="submit"
-                className="px-8 py-3 bg-white text-primary-600 font-bold rounded-lg hover:bg-gray-100 transition-colors"
+                disabled={subscribing}
+                className="px-8 py-3 bg-white text-primary-600 font-bold rounded-lg hover:bg-gray-100 transition-colors disabled:opacity-50"
               >
-                Subscribe
+                {subscribing ? 'Subscribing...' : 'Subscribe'}
               </button>
             </form>
           </motion.div>

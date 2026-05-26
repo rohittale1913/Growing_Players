@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
 import Products from './pages/Products'
+import ProductDetail from './pages/ProductDetail'
 import Categories from './pages/Categories'
 import Cart from './pages/Cart'
 import NotFound from './pages/NotFound'
@@ -24,6 +25,8 @@ import AdminCategories from './pages/admin/Categories'
 import AdminOrders from './pages/admin/Orders'
 import AdminUsers from './pages/admin/Users'
 import AdminInventory from './pages/admin/Inventory'
+import AdminNewsletter from './pages/admin/Newsletter'
+import AdminInquiries from './pages/admin/Inquiries'
 import ProtectedRoute from './components/ProtectedRoute'
 
 function App() {
@@ -32,6 +35,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/products" element={<Products />} />
+        <Route path="/product/:id" element={<ProductDetail />} />
         <Route path="/categories" element={<Categories />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/login" element={<Login />} />
@@ -58,6 +62,8 @@ function App() {
         <Route path="/admin/orders" element={<ProtectedRoute element={<AdminOrders />} />} />
         <Route path="/admin/users" element={<ProtectedRoute element={<AdminUsers />} />} />
         <Route path="/admin/inventory" element={<ProtectedRoute element={<AdminInventory />} />} />
+        <Route path="/admin/newsletter" element={<ProtectedRoute element={<AdminNewsletter />} />} />
+        <Route path="/admin/inquiries" element={<ProtectedRoute element={<AdminInquiries />} />} />
         
         <Route path="*" element={<NotFound />} />
       </Routes>

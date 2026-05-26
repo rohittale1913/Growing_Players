@@ -76,7 +76,7 @@ const AdminInventory = () => {
 
   return (
     <AdminLayout>
-      <div className="space-y-6">
+      <div className="space-y-6 font-display">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0 }}

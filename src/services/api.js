@@ -348,3 +348,120 @@ export const fileAPI = {
     }
   },
 }
+
+// Newsletter API
+export const newsletterAPI = {
+  async subscribe(email) {
+    try {
+      const { data, error } = await supabase
+        .from('newsletter_subscriptions')
+        .insert([{ email, subscribed_at: new Date() }])
+        .select()
+
+      if (error) throw error
+      toast.success('Successfully subscribed to our newsletter!')
+      return data[0]
+    } catch (error) {
+      if (error.code === '23505') {
+        toast.error('Email already subscribed')
+      } else {
+        toast.error('Failed to subscribe. Please try again.')
+      }
+      throw error
+    }
+  },
+
+  async getAll() {
+    try {
+      const { data, error } = await supabase
+        .from('newsletter_subscriptions')
+        .select('*')
+        .order('subscribed_at', { ascending: false })
+
+      if (error) throw error
+      return data
+    } catch (error) {
+      throw error
+    }
+  },
+
+  async delete(id) {
+    try {
+      const { error } = await supabase
+        .from('newsletter_subscriptions')
+        .delete()
+        .eq('id', id)
+
+      if (error) throw error
+      toast.success('Subscription removed')
+      return true
+    } catch (error) {
+      toast.error('Failed to remove subscription')
+      throw error
+    }
+  },
+}
+
+// Contact Inquiry API
+export const inquiryAPI = {
+  async create(inquiry) {
+    try {
+      const { data, error } = await supabase
+        .from('contact_inquiries')
+        .insert([{ ...inquiry, created_at: new Date() }])
+        .select()
+
+      if (error) throw error
+      toast.success('Message sent successfully! We will contact you soon.')
+      return data[0]
+    } catch (error) {
+      toast.error('Failed to send message. Please try again.')
+      throw error
+    }
+  },
+
+  async getAll() {
+    try {
+      const { data, error } = await supabase
+        .from('contact_inquiries')
+        .select('*')
+        .order('created_at', { ascending: false })
+
+      if (error) throw error
+      return data
+    } catch (error) {
+      throw error
+    }
+  },
+
+  async markAsRead(id) {
+    try {
+      const { data, error } = await supabase
+        .from('contact_inquiries')
+        .update({ is_read: true })
+        .eq('id', id)
+        .select()
+
+      if (error) throw error
+      return data[0]
+    } catch (error) {
+      throw error
+    }
+  },
+
+  async delete(id) {
+    try {
+      const { error } = await supabase
+        .from('contact_inquiries')
+        .delete()
+        .eq('id', id)
+
+      if (error) throw error
+      toast.success('Inquiry deleted')
+      return true
+    } catch (error) {
+      toast.error('Failed to delete inquiry')
+      throw error
+    }
+  },
+}

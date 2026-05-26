@@ -2,6 +2,7 @@ import { useState } from 'react'
 import toast from 'react-hot-toast'
 import Layout from '../layouts/MainLayout'
 import { Mail, Phone, MapPin, Clock, Send, AlertCircle, CheckCircle2, Loader2, Home, HomeIcon } from 'lucide-react'
+import { inquiryAPI } from '../services/api'
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -122,14 +123,12 @@ export default function Contact() {
 
     setLoading(true)
     try {
-      // Simulate form submission
-      await new Promise((resolve) => setTimeout(resolve, 1500))
+      await inquiryAPI.create(formData)
       setSubmitted(true)
       setFormData({ name: '', email: '', phone: '', subject: '', message: '' })
-      toast.success('Message sent successfully! We will contact you soon.')
       setTimeout(() => setSubmitted(false), 5000)
     } catch (error) {
-      toast.error('Failed to send message. Please try again.')
+      console.error('Contact form error:', error)
     } finally {
       setLoading(false)
     }

@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
-import { motion } from 'framer-motion'
-import { ShoppingCart, MapPin, CreditCard, AlertCircle, Loader2, ArrowRight } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { ShoppingCart, MapPin, CreditCard, AlertCircle, Loader2, ArrowRight, X, LogIn, UserPlus } from 'lucide-react'
 import Layout from '../layouts/MainLayout'
-import { useCartStore } from '../store'
+import { useCartStore, useAuthStore } from '../store'
 import { formatPrice } from '../utils/helpers'
 import { supabase } from '../lib/supabase'
 import { orderAPI } from '../services/api'
@@ -12,8 +12,10 @@ import toast from 'react-hot-toast'
 const Checkout = () => {
   const navigate = useNavigate()
   const { items, total, clearCart } = useCartStore()
+  const { isAuthenticated } = useAuthStore()
   const [loading, setLoading] = useState(false)
   const [step, setStep] = useState('address') // address, payment, confirmation
+  const [showAuthModal, setShowAuthModal] = useState(false)
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -66,8 +68,13 @@ const Checkout = () => {
     return true
   }
 
-  const handleAddressSubmit = () => {
+  const handleAddressSubmit = async () => {
     if (validateAddress()) {
+      // Check if user is authenticated
+      if (!isAuthenticated) {
+        setShowAuthModal(true)
+        return
+      }
       setStep('payment')
     }
   }
@@ -77,15 +84,9 @@ const Checkout = () => {
     try {
       const { data: { session } } = await supabase.auth.getSession()
 
-      if (!session) {
-        toast.error('Please log in to place an order')
-        navigate('/login')
-        return
-      }
-
       // Create order
       const orderData = {
-        user_id: session.user.id,
+        user_id: session?.user?.id,
         items: items,
         total: total,
         status: 'pending',
@@ -356,6 +357,72 @@ const Checkout = () => {
             </div>
           </div>
         </div>
+
+        {/* Authentication Modal */}
+        <AnimatePresence>
+          {showAuthModal && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
+            >
+              <motion.div
+                initial={{ scale: 0.95, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.95, opacity: 0 }}
+                className="bg-white rounded-lg shadow-lg max-w-sm w-full"
+              >
+                <div className="flex items-center justify-between p-6 border-b border-gray-200">
+                  <h2 className="text-xl font-bold text-gray-900">Sign In Required</h2>
+                  <button
+                    onClick={() => setShowAuthModal(false)}
+                    className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                  >
+                    <X size={24} />
+                  </button>
+                </div>
+
+                <div className="p-6">
+                  <p className="text-gray-600 mb-6 text-center">
+                    Please sign in or create an account to proceed with checkout.
+                  </p>
+
+                  <div className="space-y-3">
+                    <button
+                      onClick={() => {
+                        setShowAuthModal(false)
+                        navigate('/login')
+                      }}
+                      className="w-full flex items-center justify-center gap-3 px-4 py-3 bg-primary-600 hover:bg-primary-700 text-white rounded-lg transition-colors font-medium"
+                    >
+                      <LogIn size={20} />
+                      Sign In
+                    </button>
+
+                    <button
+                      onClick={() => {
+                        setShowAuthModal(false)
+                        navigate('/register')
+                      }}
+                      className="w-full flex items-center justify-center gap-3 px-4 py-3 border-2 border-primary-600 text-primary-600 hover:bg-primary-50 rounded-lg transition-colors font-medium"
+                    >
+                      <UserPlus size={20} />
+                      Create Account
+                    </button>
+                  </div>
+
+                  <button
+                    onClick={() => setShowAuthModal(false)}
+                    className="w-full mt-4 px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
+                  >
+                    Continue as Guest
+                  </button>
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </Layout>
   )
