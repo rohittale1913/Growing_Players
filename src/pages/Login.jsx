@@ -4,10 +4,12 @@ import { Mail, Lock, AlertCircle, Loader2, ShieldAlert } from 'lucide-react'
 import { FcGoogle } from 'react-icons/fc'
 import Layout from '../layouts/MainLayout'
 import { supabase } from '../lib/supabase'
+import { useAuthStore } from '../store'
 import toast from 'react-hot-toast'
 
 const Login = () => {
   const navigate = useNavigate()
+  const { setUser } = useAuthStore()
   const [loading, setLoading] = useState(false)
   const [googleLoading, setGoogleLoading] = useState(false)
   const [isAdminLogin, setIsAdminLogin] = useState(false)
@@ -80,6 +82,10 @@ const Login = () => {
         return
       }
 
+      // Update auth store with user data
+      console.log('✅ Login successful, updating auth store with user:', data.user?.id)
+      setUser(data.user)
+
       // If admin login mode, verify admin role
       if (isAdminLogin) {
         const userRole = data.user?.user_metadata?.user_role
@@ -89,6 +95,7 @@ const Login = () => {
           
           // Sign out the user since they don't have admin role
           await supabase.auth.signOut()
+          setUser(null)
           setLoading(false)
           return
         }
@@ -96,7 +103,14 @@ const Login = () => {
         navigate('/admin')
       } else {
         toast.success('Login successful!')
-        navigate('/')
+        // If coming from checkout, go back to checkout; otherwise home
+        const referrer = sessionStorage.getItem('checkoutRedirect')
+        if (referrer) {
+          sessionStorage.removeItem('checkoutRedirect')
+          navigate('/checkout')
+        } else {
+          navigate('/')
+        }
       }
     } catch (err) {
       setError('An error occurred. Please try again.')

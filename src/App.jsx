@@ -11,6 +11,7 @@ import ForgotPassword from './pages/ForgotPassword'
 import ResetPassword from './pages/ResetPassword'
 import Profile from './pages/Profile'
 import Orders from './pages/Orders'
+import OrderDetail from './pages/OrderDetail'
 import Checkout from './pages/Checkout'
 import PrivacyPolicy from './pages/PrivacyPolicy'
 import TermsConditions from './pages/TermsConditions'
@@ -44,6 +45,7 @@ function App() {
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/orders" element={<Orders />} />
+        <Route path="/orders/:orderId" element={<OrderDetail />} />
         <Route path="/checkout" element={<Checkout />} />
         
         {/* Info Pages */}

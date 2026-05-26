@@ -7,6 +7,7 @@ import { supabase } from '../lib/supabase'
 import { orderAPI } from '../services/api'
 import { EmptyState } from '../components/Loaders'
 import toast from 'react-hot-toast'
+import { BiRupee } from 'react-icons/bi'
 
 const Orders = () => {
   const navigate = useNavigate()
@@ -17,9 +18,14 @@ const Orders = () => {
   useEffect(() => {
     const fetchUserAndOrders = async () => {
       try {
+        console.log('📋 Fetching session...')
         const { data: { session }, error } = await supabase.auth.getSession()
+        
+        console.log('✅ Session:', session?.user?.id)
+        console.log('❌ Session error:', error)
 
         if (error || !session) {
+          console.error('❌ No session, redirecting to login')
           navigate('/login')
           return
         }
@@ -27,10 +33,15 @@ const Orders = () => {
         setUser(session.user)
 
         // Fetch user's orders
+        console.log('📦 Fetching orders for user:', session.user.id)
         const ordersData = await orderAPI.getAll(session.user.id)
+        console.log('✅ Orders fetched:', ordersData)
+        console.log('📊 Orders count:', ordersData?.length || 0)
+        
         setOrders(ordersData || [])
       } catch (error) {
-        console.error('Failed to fetch orders:', error)
+        console.error('❌ Failed to fetch orders:', error)
+        console.error('❌ Error details:', error.message || error)
         toast.error('Failed to load orders')
       } finally {
         setLoading(false)
@@ -92,9 +103,9 @@ const Orders = () => {
             animate={{ opacity: 1, y: 0 }}
           >
             {/* Header */}
-            <div className="mb-8">
-              <h1 className="heading-h2 text-gray-900">My Orders</h1>
-              <p className="text-gray-600 mt-2">Track your orders and manage returns</p>
+            <div className="mb-8 text-center">
+              <h1 className="heading-h2 text-gradient">My Orders</h1>
+              <p className="text-gray-600 mt-2">Track your orders and manage returns.</p>
             </div>
 
             {/* Orders List */}
@@ -122,26 +133,26 @@ const Orders = () => {
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
                       {/* Order ID */}
                       <div>
-                        <p className="text-xs text-gray-500 uppercase mb-1">Order ID</p>
-                        <p className="font-semibold text-gray-900">#{order.id?.slice(0, 8).toUpperCase()}</p>
+                        <p className="text-xs text-gray-700 uppercase mb-1">Order ID</p>
+                        <p className="font-semibold text-gray-900">#{order.order_number || order.id}</p>
                       </div>
 
                       {/* Date */}
                       <div className="flex items-start gap-2">
-                        <Calendar className="w-4 h-4 text-gray-400 mt-0.5" />
-                        <div>
-                          <p className="text-xs text-gray-500 uppercase mb-1">Date</p>
-                          <p className="text-gray-700">{formatDate(order.created_at)}</p>
+                        <Calendar className="w-4 h-4 text-gray-700" />
+                        <div className=''>
+                          <p className="text-xs text-gray-700 uppercase ">Date</p>
+                          <p className="text-gray-900 font-semibold">{formatDate(order.created_at)}</p>
                         </div>
                       </div>
 
                       {/* Total */}
                       <div className="flex items-start gap-2">
-                        <DollarSign className="w-4 h-4 text-gray-400 mt-0.5" />
+                        {/* <BiRupee className="w-4 h-4 text-gray-700"/> */}
                         <div>
-                          <p className="text-xs text-gray-500 uppercase mb-1">Total</p>
+                          <p className="text-xs text-gray-700 uppercase">Total</p>
                           <p className="text-lg font-bold text-primary-600">
-                            ₹{order.total?.toLocaleString('en-IN') || '0'}
+                            ₹ {((order.subtotal || 0) + (order.shipping || 0) + (order.tax || 0)).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                           </p>
                         </div>
                       </div>
@@ -161,20 +172,28 @@ const Orders = () => {
                     </div>
 
                     {/* Items Preview */}
-                    {order.items && order.items.length > 0 && (
+                    {order.items && (
                       <div className="mt-4 pt-4 border-t border-gray-200">
                         <p className="text-xs text-gray-500 uppercase mb-2">Items</p>
                         <div className="flex flex-wrap gap-2">
-                          {order.items.slice(0, 3).map((item, idx) => (
-                            <span key={idx} className="px-2 py-1 bg-gray-100 text-gray-700 text-sm rounded">
-                              {item.name} x {item.quantity}
-                            </span>
-                          ))}
-                          {order.items.length > 3 && (
-                            <span className="px-2 py-1 bg-gray-100 text-gray-700 text-sm rounded">
-                              +{order.items.length - 3} more
-                            </span>
-                          )}
+                          {(() => {
+                            const items = typeof order.items === 'string' ? JSON.parse(order.items) : order.items
+                            if (!Array.isArray(items) || items.length === 0) return null
+                            return items.slice(0, 3).map((item, idx) => (
+                              <span key={idx} className="px-2 py-1 bg-gray-100 text-gray-700 text-sm rounded">
+                                {item.name} x {item.quantity}
+                              </span>
+                            ))
+                          })()}
+                          {(() => {
+                            const items = typeof order.items === 'string' ? JSON.parse(order.items) : order.items
+                            if (!Array.isArray(items) || items.length <= 3) return null
+                            return (
+                              <span className="px-2 py-1 bg-gray-100 text-gray-700 text-sm rounded">
+                                +{items.length - 3} more
+                              </span>
+                            )
+                          })()}
                         </div>
                       </div>
                     )}

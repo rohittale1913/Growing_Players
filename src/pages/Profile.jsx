@@ -129,8 +129,8 @@ const Profile = () => {
             {/* Header */}
             <div className="flex items-center justify-between mb-8">
               <div>
-                <h1 className="heading-h2 text-gray-900">My Profile</h1>
-                <p className="text-gray-600 mt-2">Manage your account information</p>
+                <h1 className="heading-h2 text-gradient">My Profile</h1>
+                <p className="text-gray-600 mt-2">Manage your account information.</p>
               </div>
               <button
                 onClick={handleLogout}

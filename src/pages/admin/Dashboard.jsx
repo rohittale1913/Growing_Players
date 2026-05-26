@@ -60,15 +60,17 @@ const AdminDashboard = () => {
 
         if (ordersError) throw ordersError
 
-        // Calculate total revenue
-        const totalRevenue = (orders || []).reduce((sum, order) => sum + (order.total || 0), 0)
+        // Calculate total revenue - use total_price column
+        console.log('📊 Orders fetched:', orders?.length || 0)
+        console.log('📊 First order sample:', orders?.[0])
+        const totalRevenue = (orders || []).reduce((sum, order) => sum + (order.total_price || 0), 0)
         const monthlyRevenue = (orders || [])
           .filter((order) => {
             const orderDate = new Date(order.created_at)
             const now = new Date()
             return orderDate.getMonth() === now.getMonth()
           })
-          .reduce((sum, order) => sum + (order.total || 0), 0)
+          .reduce((sum, order) => sum + (order.total_price || 0), 0)
 
         // Fetch products
         const { data: products, error: productsError } = await supabase
@@ -99,7 +101,7 @@ const AdminDashboard = () => {
             const dateStr = orderDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
             if (data[dateStr]) {
               data[dateStr].sales += 1
-              data[dateStr].revenue += order.total || 0
+              data[dateStr].revenue += order.total_price || 0
             }
           })
           
@@ -125,7 +127,7 @@ const AdminDashboard = () => {
             const monthStr = orderDate.toLocaleDateString('en-US', { month: 'short' })
             if (data[monthStr]) {
               data[monthStr].orders += 1
-              if (order.status === 'completed') {
+              if (order.status === 'delivered') {
                 data[monthStr].completed += 1
               }
             }
@@ -175,14 +177,21 @@ const AdminDashboard = () => {
           .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
           .slice(0, 5)
           .map((order) => ({
-            id: order.id?.slice(0, 8),
-            total: order.total,
+            id: order.order_number || order.id?.slice(0, 8),
+            total: order.total_price,
             status: order.status,
             date: new Date(order.created_at).toLocaleDateString('en-IN'),
           }))
 
         // Count unique users from orders
         const uniqueUsers = new Set((orders || []).map(o => o.user_id)).size
+
+        console.log('✅ Dashboard stats updated:', {
+          totalRevenue: Math.round(totalRevenue),
+          totalOrders: orders?.length || 0,
+          totalUsers: uniqueUsers || 0,
+          totalProducts: products?.length || 0,
+        })
 
         setStats({
           totalRevenue: Math.round(totalRevenue),
@@ -191,7 +200,7 @@ const AdminDashboard = () => {
           totalProducts: products?.length || 0,
           lowStockCount,
           monthlyRevenue: Math.round(monthlyRevenue),
-          conversionRate: orders?.length > 0 ? ((orders.filter(o => o.status === 'completed').length / orders.length) * 100).toFixed(1) : 0,
+          conversionRate: orders?.length > 0 ? ((orders.filter(o => o.status === 'delivered').length / orders.length) * 100).toFixed(1) : 0,
         })
 
         setChartData({

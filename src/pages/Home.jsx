@@ -317,7 +317,7 @@ const Home = () => {
           >
             <h2 className="font-display heading-h2 mb-4">Featured Products</h2>
             <p className="font-display text-gray-600 text-lg max-w-2xl mx-auto">
-              Explore our premium selection - the finest ingredients loved by bakers worldwide
+              Explore our premium selection - the finest ingredients loved by bakers worldwide.
             </p>
           </motion.div>
 
@@ -368,7 +368,7 @@ const Home = () => {
           >
             <h2 className="heading-h2 font-display text-gray-900 mb-4">Shop by Category</h2>
             <p className="font-display text-gray-600 text-lg max-w-2xl mx-auto">
-              Organized collection of premium baking and decoration products
+              Organized collection of premium baking and decoration products.
             </p>
           </motion.div>
 
@@ -388,9 +388,9 @@ const Home = () => {
             whileInView={{ opacity: 1, y: 0 }}
             className="text-center mb-16"
           >
-            <h2 className="heading-h2 font-display text-gray-900 mb-4">What Our Customers Say</h2>
+            <h2 className="heading-h2 font-display text-gray-900 mb-4">What Our Customers Say ?</h2>
             <p className=" font-display text-gray-600 text-lg max-w-2xl mx-auto">
-              Join thousands of satisfied bakers and pastry chefs
+              Join thousands of satisfied bakers and pastry chefs.
             </p>
           </motion.div>
 
@@ -441,7 +441,7 @@ const Home = () => {
           >
             <h2 className="font-display heading-h2 mb-4">Join Our Newsletter</h2>
             <p className="font-display text-white/90 text-lg mb-8">
-              Get exclusive deals, new product launches, and baking tips delivered to your inbox
+              Get exclusive deals, new product launches, and baking tips delivered to your inbox.
             </p>
             <form className="font-display flex flex-col sm:flex-row gap-3" onSubmit={handleNewsletterSubmit}>
               <input

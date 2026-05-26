@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Menu, X, Heart, ShoppingCart, User, Search } from 'lucide-react'
+import { Menu, X, Heart, ShoppingCart, User, Search, Package } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { useCartStore } from '../store'
 import Logo from "../assets/logoo.png";
@@ -78,6 +78,13 @@ const Navbar = () => {
               )}
             </Link>
             <Link
+              to="/orders"
+              className="p-2 hover:bg-gray-100 rounded-lg transition-colors hidden md:block"
+              title="My Orders"
+            >
+              <Package size={20} />
+            </Link>
+            <Link
               to="/profile"
               className="p-2 hover:bg-gray-100 rounded-lg transition-colors hidden md:block"
             >
@@ -111,6 +118,20 @@ const Navbar = () => {
                 {item.label}
               </Link>
             ))}
+            <Link
+              to="/orders"
+              className="block px-4 py-2 text-gray-700 hover:bg-primary-50 transition-colors flex items-center gap-2"
+            >
+              <Package size={18} />
+              My Orders
+            </Link>
+            <Link
+              to="/profile"
+              className="block px-4 py-2 text-gray-700 hover:bg-primary-50 transition-colors flex items-center gap-2"
+            >
+              <User size={18} />
+              Profile
+            </Link>
           </motion.div>
         )}
       </div>

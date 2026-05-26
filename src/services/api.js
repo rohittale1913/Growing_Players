@@ -164,15 +164,25 @@ export const categoryAPI = {
 export const orderAPI = {
   async getAll(userId) {
     try {
+      console.log('📦 OrderAPI.getAll() - Fetching orders for user:', userId)
+      
       const { data, error } = await supabase
         .from('orders')
-        .select('*, order_items(*)')
+        .select('*')
         .eq('user_id', userId)
         .order('created_at', { ascending: false })
 
-      if (error) throw error
+      console.log('✅ OrderAPI response:', { data, error })
+      
+      if (error) {
+        console.error('❌ OrderAPI Supabase error:', error)
+        throw error
+      }
+      
+      console.log('✅ Orders returned:', data?.length || 0, 'orders')
       return data
     } catch (error) {
+      console.error('❌ OrderAPI.getAll() failed:', error)
       toast.error('Failed to fetch orders')
       throw error
     }
@@ -195,16 +205,42 @@ export const orderAPI = {
 
   async create(order) {
     try {
+      console.log('📦 Order API - Creating order with:', order)
+      console.log('📦 Order data types:', {
+        order_number: typeof order.order_number,
+        user_id: typeof order.user_id,
+        items: typeof order.items,
+        subtotal: typeof order.subtotal,
+        shipping: typeof order.shipping,
+        tax: typeof order.tax,
+        total_price: typeof order.total_price,
+        status: typeof order.status,
+        shipping_address: typeof order.shipping_address,
+        payment_status: typeof order.payment_status,
+      })
+      
       const { data, error } = await supabase
         .from('orders')
         .insert([order])
         .select()
 
-      if (error) throw error
+      if (error) {
+        console.error('❌ Supabase error details:', {
+          code: error.code,
+          message: error.message,
+          details: error.details,
+          hint: error.hint,
+          fullError: error
+        })
+        throw new Error(error.message || 'Failed to insert order')
+      }
+      
+      console.log('✅ Order created successfully:', data)
       toast.success('Order created successfully')
       return data[0]
     } catch (error) {
-      toast.error('Failed to create order')
+      console.error('❌ Order creation failed:', error.message)
+      toast.error(`Failed to create order: ${error.message}`)
       throw error
     }
   },

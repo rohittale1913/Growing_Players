@@ -4,10 +4,12 @@ import { Mail, Lock, User, AlertCircle, CheckCircle2, Loader2 } from 'lucide-rea
 import { FcGoogle } from 'react-icons/fc'
 import Layout from '../layouts/MainLayout'
 import { supabase } from '../lib/supabase'
+import { useAuthStore } from '../store'
 import toast from 'react-hot-toast'
 
 const Register = () => {
   const navigate = useNavigate()
+  const { setUser } = useAuthStore()
   const [loading, setLoading] = useState(false)
   const [googleLoading, setGoogleLoading] = useState(false)
   const [formData, setFormData] = useState({
@@ -114,8 +116,24 @@ const Register = () => {
         return
       }
 
+      // Update auth store with user data
+      if (authData.user) {
+        console.log('✅ Registration successful, updating auth store with user:', authData.user.id)
+        setUser(authData.user)
+      }
+
       toast.success('Registration successful! Please check your email to verify your account.')
-      navigate('/login')
+      
+      // If coming from checkout, redirect back after a delay
+      const referrer = sessionStorage.getItem('checkoutRedirect')
+      if (referrer) {
+        sessionStorage.removeItem('checkoutRedirect')
+        setTimeout(() => {
+          navigate('/checkout')
+        }, 2000)
+      } else {
+        navigate('/login')
+      }
     } catch (err) {
       setError('An error occurred. Please try again.')
       console.error('Registration error:', err)

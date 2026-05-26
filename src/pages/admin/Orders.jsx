@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Search, Eye, X, Loader2, Package } from 'lucide-react'
+import { Search, Eye, X, Loader2, Package, CheckCircle, Clock, Truck, Home, XCircle } from 'lucide-react'
 import AdminLayout from '../../layouts/AdminLayout'
 import { orderAPI } from '../../services/api'
 import { supabase } from '../../lib/supabase'
@@ -13,6 +13,7 @@ const AdminOrders = () => {
   const [showDetailModal, setShowDetailModal] = useState(false)
   const [selectedOrder, setSelectedOrder] = useState(null)
   const [updatingStatus, setUpdatingStatus] = useState(false)
+  const [filterStatus, setFilterStatus] = useState('all') // Filter by status
 
   useEffect(() => {
     fetchOrders()
@@ -21,27 +22,56 @@ const AdminOrders = () => {
   const fetchOrders = async () => {
     try {
       setLoading(true)
+      console.log('📦 Admin: Fetching all orders from database...')
+      
       // Fetch all orders from database
       const { data, error } = await supabase
         .from('orders')
         .select('*')
         .order('created_at', { ascending: false })
 
+      console.log('✅ Admin orders fetched:', data?.length || 0, 'orders')
+      console.log('📋 Orders data:', data)
+      console.log('❌ Fetch error:', error)
+      
       if (error) throw error
       setOrders(data || [])
     } catch (error) {
-      console.error('Failed to fetch orders:', error)
+      console.error('❌ Failed to fetch orders:', error)
       toast.error('Failed to load orders')
     } finally {
       setLoading(false)
     }
   }
 
-  const filteredOrders = orders.filter((order) =>
-    order.id?.includes(searchQuery.toLowerCase())
-  )
+  const filteredOrders = orders.filter((order) => {
+    const matchesSearch = (order.order_number?.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                          order.id?.toString().includes(searchQuery) ||
+                          order.customer_name?.toLowerCase().includes(searchQuery.toLowerCase()))
+    const matchesStatus = filterStatus === 'all' || order.status === filterStatus
+    return matchesSearch && matchesStatus
+  })
 
   const statusOptions = ['pending', 'processing', 'shipped', 'delivered', 'cancelled']
+  
+  // Count orders by status
+  const statusCounts = {
+    all: orders.length,
+    pending: orders.filter(o => o.status === 'pending').length,
+    processing: orders.filter(o => o.status === 'processing').length,
+    shipped: orders.filter(o => o.status === 'shipped').length,
+    delivered: orders.filter(o => o.status === 'delivered').length,
+    cancelled: orders.filter(o => o.status === 'cancelled').length,
+  }
+
+  const statusIcons = {
+    pending: Clock,
+    processing: Loader2,
+    shipped: Truck,
+    delivered: Home,
+    cancelled: XCircle,
+    all: Package,
+  }
 
   const updateOrderStatus = async (orderId, newStatus) => {
     setUpdatingStatus(true)
@@ -88,23 +118,74 @@ const AdminOrders = () => {
           <p className="text-gray-600 mt-2">Manage and track customer orders</p>
         </motion.div>
 
-        {/* Search */}
+        {/* Status Filter Cards */}
+        <div className="grid grid-cols-2 md:grid-cols-6 gap-3">
+          {['all', 'pending', 'processing', 'shipped', 'delivered', 'cancelled'].map((status) => {
+            const Icon = statusIcons[status]
+            const count = statusCounts[status]
+            const isActive = filterStatus === status
+            const bgColor = {
+              all: 'bg-gray-100 hover:bg-gray-200',
+              pending: 'bg-yellow-100 hover:bg-yellow-200',
+              processing: 'bg-blue-100 hover:bg-blue-200',
+              shipped: 'bg-purple-100 hover:bg-purple-200',
+              delivered: 'bg-green-100 hover:bg-green-200',
+              cancelled: 'bg-red-100 hover:bg-red-200',
+            }
+            const textColor = {
+              all: 'text-gray-700',
+              pending: 'text-yellow-700',
+              processing: 'text-blue-700',
+              shipped: 'text-purple-700',
+              delivered: 'text-green-700',
+              cancelled: 'text-red-700',
+            }
+
+            return (
+              <motion.button
+                key={status}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => setFilterStatus(status)}
+                className={`p-4 rounded-lg transition-all cursor-pointer ${
+                  isActive 
+                    ? `${bgColor[status]} ring-2 ring-offset-2 ring-primary-600 font-bold` 
+                    : bgColor[status]
+                }`}
+              >
+                <Icon className={`w-6 h-6 mx-auto mb-2 ${textColor[status]}`} />
+                <p className={`text-sm font-semibold ${textColor[status]} capitalize`}>
+                  {status}
+                </p>
+                <p className={`text-lg font-bold ${textColor[status]}`}>
+                  {count}
+                </p>
+              </motion.button>
+            )
+          })}
+        </div>
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           className="bg-white rounded-lg shadow-md p-4"
         >
-          <div className="flex items-center gap-4">
-            <div className="flex-1 relative">
+          <div className="flex items-center gap-4 flex-col md:flex-row">
+            <div className="flex-1 w-full relative">
               <Search className="absolute left-3 top-3 text-gray-400" size={20} />
               <input
                 type="text"
-                placeholder="Search by order ID..."
+                placeholder="Search by order ID, customer name..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
               />
             </div>
+            <button
+              onClick={() => fetchOrders()}
+              className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors whitespace-nowrap"
+            >
+              Refresh
+            </button>
           </div>
         </motion.div>
 
@@ -142,25 +223,38 @@ const AdminOrders = () => {
                       key={order.id}
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
-                      className="border-b border-gray-100 hover:bg-gray-50"
+                      className="border-b border-gray-100 hover:bg-gray-50 transition-colors"
                     >
                       <td className="px-6 py-4 text-sm font-mono text-gray-900">
-                        #{order.id?.slice(0, 8).toUpperCase()}
+                        #{order.order_number || order.id}
                       </td>
                       <td className="px-6 py-4 text-sm font-bold text-gray-900">
-                        ₹{order.total?.toLocaleString('en-IN')}
+                        ₹{(order.total_price || 0).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                       </td>
                       <td className="px-6 py-4">
-                        <span className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(order.status)}`}>
-                          {order.status?.charAt(0).toUpperCase() + order.status?.slice(1)}
-                        </span>
+                        {/* Quick Status Update Dropdown */}
+                        <select
+                          value={order.status || 'pending'}
+                          onChange={(e) => updateOrderStatus(order.id, e.target.value)}
+                          disabled={updatingStatus}
+                          className={`px-3 py-1 rounded-full text-sm font-medium border-0 cursor-pointer transition-all ${getStatusColor(order.status)} disabled:opacity-50`}
+                        >
+                          {statusOptions.map((status) => (
+                            <option key={status} value={status}>
+                              {status.charAt(0).toUpperCase() + status.slice(1)}
+                            </option>
+                          ))}
+                        </select>
                       </td>
                       <td className="px-6 py-4 text-sm text-gray-600">
                         {new Date(order.created_at).toLocaleDateString('en-IN')}
                       </td>
                       <td className="px-6 py-4">
                         <button
-                          onClick={() => setSelectedOrder(order) || setShowDetailModal(true)}
+                          onClick={() => {
+                            setSelectedOrder(order)
+                            setShowDetailModal(true)
+                          }}
                           className="inline-flex items-center gap-2 px-3 py-2 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition-colors text-sm font-medium"
                         >
                           <Eye size={16} />
@@ -192,7 +286,7 @@ const AdminOrders = () => {
               >
                 <div className="flex items-center justify-between p-6 border-b border-gray-200 sticky top-0 bg-white">
                   <h2 className="text-2xl font-bold text-gray-900">
-                    Order #{selectedOrder.id?.slice(0, 8).toUpperCase()}
+                    Order #{selectedOrder.order_number || selectedOrder.id}
                   </h2>
                   <button
                     onClick={() => setShowDetailModal(false)}
@@ -214,8 +308,31 @@ const AdminOrders = () => {
                     <div>
                       <p className="text-sm text-gray-600 mb-1">Total Amount</p>
                       <p className="font-semibold text-primary-600 text-lg">
-                        ₹{selectedOrder.total?.toLocaleString('en-IN')}
+                        ₹{(selectedOrder.total_price || 0).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                       </p>
+                    </div>
+                  </div>
+
+                  {/* Price Breakdown */}
+                  <div className="bg-gray-50 p-4 rounded-lg">
+                    <h3 className="font-semibold text-gray-900 mb-3">Price Breakdown</h3>
+                    <div className="space-y-2 text-sm">
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">Subtotal:</span>
+                        <span className="font-medium text-gray-900">₹{(selectedOrder.subtotal || 0).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">Shipping:</span>
+                        <span className="font-medium text-gray-900">₹{(selectedOrder.shipping || 0).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">Tax (18%):</span>
+                        <span className="font-medium text-gray-900">₹{(selectedOrder.tax || 0).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                      </div>
+                      <div className="border-t border-gray-300 pt-2 flex justify-between font-bold">
+                        <span>Total:</span>
+                        <span className="text-primary-600">₹{(selectedOrder.total_price || 0).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                      </div>
                     </div>
                   </div>
 
@@ -247,32 +364,52 @@ const AdminOrders = () => {
                     <div className="border-t border-gray-200 pt-6">
                       <h3 className="font-semibold text-gray-900 mb-3">Shipping Address</h3>
                       <div className="bg-gray-50 p-4 rounded-lg">
-                        <p className="text-sm text-gray-700">
-                          {selectedOrder.shipping_address.fullName}<br />
-                          {selectedOrder.shipping_address.address}<br />
-                          {selectedOrder.shipping_address.city}, {selectedOrder.shipping_address.state} {selectedOrder.shipping_address.zipCode}<br />
-                          {selectedOrder.shipping_address.phone}
-                        </p>
+                        {(() => {
+                          try {
+                            const addr = typeof selectedOrder.shipping_address === 'string' 
+                              ? JSON.parse(selectedOrder.shipping_address) 
+                              : selectedOrder.shipping_address
+                            return (
+                              <p className="text-sm text-gray-700">
+                                {addr.fullName}<br />
+                                {addr.address}<br />
+                                {addr.city}, {addr.state} {addr.zipCode}<br />
+                                {addr.phone}
+                              </p>
+                            )
+                          } catch (e) {
+                            return <p className="text-sm text-gray-700">Invalid address format</p>
+                          }
+                        })()}
                       </div>
                     </div>
                   )}
 
                   {/* Order Items */}
-                  {selectedOrder.items && selectedOrder.items.length > 0 && (
+                  {selectedOrder.items && (
                     <div className="border-t border-gray-200 pt-6">
                       <h3 className="font-semibold text-gray-900 mb-3">Items</h3>
                       <div className="space-y-3">
-                        {selectedOrder.items.map((item, idx) => (
-                          <div key={idx} className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-                            <div>
-                              <p className="font-medium text-gray-900">{item.name}</p>
-                              <p className="text-sm text-gray-600">Qty: {item.quantity}</p>
-                            </div>
-                            <p className="font-semibold text-gray-900">
-                              ₹{(item.price * item.quantity)?.toLocaleString('en-IN')}
-                            </p>
-                          </div>
-                        ))}
+                        {(() => {
+                          try {
+                            const items = typeof selectedOrder.items === 'string' 
+                              ? JSON.parse(selectedOrder.items) 
+                              : (selectedOrder.items || [])
+                            return Array.isArray(items) ? items.map((item, idx) => (
+                              <div key={idx} className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                                <div>
+                                  <p className="font-medium text-gray-900">{item.name}</p>
+                                  <p className="text-sm text-gray-600">Qty: {item.quantity}</p>
+                                </div>
+                                <p className="font-semibold text-gray-900">
+                                  ₹{((item.price || 0) * (item.quantity || 1))?.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                                </p>
+                              </div>
+                            )) : null
+                          } catch (e) {
+                            return <p className="text-sm text-gray-600">Error parsing items</p>
+                          }
+                        })()}
                       </div>
                     </div>
                   )}

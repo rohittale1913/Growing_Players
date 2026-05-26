@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ShoppingCart, MapPin, CreditCard, AlertCircle, Loader2, ArrowRight, X, LogIn, UserPlus } from 'lucide-react'
@@ -12,7 +12,7 @@ import toast from 'react-hot-toast'
 const Checkout = () => {
   const navigate = useNavigate()
   const { items, total, clearCart } = useCartStore()
-  const { isAuthenticated } = useAuthStore()
+  const { isAuthenticated, user } = useAuthStore()
   const [loading, setLoading] = useState(false)
   const [step, setStep] = useState('address') // address, payment, confirmation
   const [showAuthModal, setShowAuthModal] = useState(false)
@@ -27,10 +27,49 @@ const Checkout = () => {
     country: 'India',
   })
 
+  // Calculate shipping based on subtotal
+  const calculateShipping = () => {
+    // Free shipping for orders over ₹1000
+    // ₹100 flat rate for orders under ₹1000
+    return total >= 1000 ? 0 : 100
+  }
+
+  const subtotal = total
+  const shipping = calculateShipping()
+  const tax = (subtotal + shipping) * 0.18 // 18% GST on subtotal + shipping
+  const grandTotal = subtotal + shipping + tax
+
+  // Check authentication on mount and on auth state change
+  useEffect(() => {
+    // Also listen to Supabase auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      async (event, session) => {
+        console.log('🔐 Auth state changed:', event, 'User:', session?.user?.id)
+        if (session?.user) {
+          // User is logged in, update store
+          const { setUser } = useAuthStore.getState()
+          setUser(session.user)
+        }
+      }
+    )
+
+    if (items.length > 0 && !isAuthenticated) {
+      setShowAuthModal(true)
+    } else if (isAuthenticated && showAuthModal) {
+      // User just signed in, close modal and proceed
+      setShowAuthModal(false)
+      toast.success('Successfully signed in! Proceeding to checkout.')
+    }
+
+    return () => {
+      subscription?.unsubscribe()
+    }
+  }, [isAuthenticated, items.length, showAuthModal])
+
   if (items.length === 0 && step === 'address') {
     return (
       <Layout>
-        <div className="min-h-screen bg-gray-50 py-12">
+        <div className="font-display min-h-screen bg-gray-50 py-12">
           <div className="max-w-4xl mx-auto px-4 text-center">
             <ShoppingCart className="w-16 h-16 text-gray-400 mx-auto mb-4" />
             <h1 className="heading-h2 text-gray-900 mb-4">Your cart is empty</h1>
@@ -70,44 +109,87 @@ const Checkout = () => {
 
   const handleAddressSubmit = async () => {
     if (validateAddress()) {
-      // Check if user is authenticated
-      if (!isAuthenticated) {
-        setShowAuthModal(true)
-        return
-      }
       setStep('payment')
     }
   }
 
   const handlePaymentSubmit = async () => {
-    setLoading(true)
-    try {
-      const { data: { session } } = await supabase.auth.getSession()
+    console.log('🎯 Place Order clicked')
+    console.log('📋 Current formData state:', formData)
+    
+    // Double-check user is authenticated before payment
+    if (!isAuthenticated || !user?.id) {
+      console.warn('❌ User not authenticated', { isAuthenticated, userId: user?.id })
+      toast.error('Please sign in to complete your order')
+      setShowAuthModal(true)
+      return
+    }
 
-      // Create order
+    console.log('✅ User authenticated:', user.id)
+    setLoading(true)
+    
+    try {
+      // Validate customer name
+      console.log('📋 Form data:', formData)
+      console.log('📋 Full name value:', formData.fullName, 'Type:', typeof formData.fullName, 'Length:', formData.fullName?.length)
+      
+      if (!formData.fullName || formData.fullName.trim() === '') {
+        console.error('❌ Full name is empty:', { fullName: formData.fullName })
+        toast.error('Please go back and provide your full name')
+        setLoading(false)
+        return
+      }
+
+      // Generate a unique order number
+      const orderNumber = `ORD-${Date.now()}-${Math.random().toString(36).substr(2, 9).toUpperCase()}`
+      
+      // Create order with authenticated user ID
+      const customerNameValue = formData.fullName.trim()
+      console.log('✅ Using customer name:', customerNameValue)
+      console.log('✅ All form fields:', {
+        fullName: customerNameValue,
+        email: formData.email,
+        phone: formData.phone,
+        address: formData.address,
+        city: formData.city,
+        state: formData.state,
+        zipCode: formData.zipCode
+      })
+      
       const orderData = {
-        user_id: session?.user?.id,
-        items: items,
-        total: total,
+        order_number: orderNumber,
+        customer_name: customerNameValue, // Customer name from form
+        customer_email: formData.email, // Customer email from form
+        user_id: user.id,
+        items: JSON.stringify(items), // Convert items to JSON string
+        subtotal: subtotal,
+        shipping: shipping,
+        tax: tax,
+        total_price: grandTotal, // Grand total: subtotal + shipping + tax
         status: 'pending',
-        shipping_address: formData,
+        shipping_address: JSON.stringify(formData), // Convert address to JSON string
         payment_status: 'pending',
       }
 
+      console.log('📦 Creating order with data:', orderData)
       const order = await orderAPI.create(orderData)
+      console.log('✅ Order created:', order)
 
       // Clear cart
       clearCart()
+      console.log('🧹 Cart cleared')
 
       toast.success('Order placed successfully!')
       setStep('confirmation')
       
       // Redirect to orders page after 2 seconds
       setTimeout(() => {
+        console.log('🚀 Redirecting to /orders')
         navigate('/orders')
       }, 2000)
     } catch (error) {
-      console.error('Failed to create order:', error)
+      console.error('❌ Failed to create order:', error)
+      console.error('Error details:', error.message || error)
       toast.error('Failed to place order. Please try again.')
     } finally {
       setLoading(false)
@@ -116,7 +198,7 @@ const Checkout = () => {
 
   return (
     <Layout>
-      <div className="min-h-screen bg-gray-50 py-12">
+      <div className="font-display min-h-screen bg-gray-50 py-12">
         <div className="max-w-6xl mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Main Content */}
@@ -155,7 +237,7 @@ const Checkout = () => {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                   >
-                    <h2 className="heading-h3 text-gray-900 mb-6">Shipping Address</h2>
+                    <h2 className="heading-h3 text-gradient mb-6">Shipping Address</h2>
                     <div className="space-y-4">
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <input
@@ -314,7 +396,7 @@ const Checkout = () => {
                 animate={{ opacity: 1, y: 0 }}
                 className="bg-white rounded-lg shadow-lg p-6 sticky top-4"
               >
-                <h3 className="heading-h3 text-gray-900 mb-6">Order Summary</h3>
+                <h3 className="heading-h3 text-gradient mb-6">Order Summary</h3>
 
                 <div className="space-y-4 mb-6 max-h-80 overflow-y-auto">
                   {items.map((item) => (
@@ -338,21 +420,33 @@ const Checkout = () => {
                 <div className="space-y-3 border-t border-gray-200 pt-6">
                   <div className="flex justify-between text-gray-600">
                     <span>Subtotal</span>
-                    <span>{formatPrice(total)}</span>
+                    <span>{formatPrice(subtotal)}</span>
                   </div>
                   <div className="flex justify-between text-gray-600">
                     <span>Shipping</span>
-                    <span className="text-green-600">Free</span>
+                    <span className={shipping === 0 ? 'text-green-600 font-medium' : 'text-gray-900 font-medium'}>
+                      {shipping === 0 ? 'Free' : formatPrice(shipping)}
+                    </span>
                   </div>
                   <div className="flex justify-between text-gray-600">
-                    <span>Tax</span>
-                    <span>{formatPrice(total * 0.18)}</span>
+                    <span>Tax (18% GST)</span>
+                    <span>{formatPrice(tax)}</span>
                   </div>
                   <div className="flex justify-between text-lg font-bold text-gray-900 pt-3 border-t border-gray-200">
                     <span>Total</span>
-                    <span className="text-primary-600">{formatPrice(total * 1.18)}</span>
+                    <span className="text-primary-600">{formatPrice(grandTotal)}</span>
                   </div>
                 </div>
+
+                {/* Shipping Info */}
+                  {/* <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                    <p className="text-sm text-blue-900 font-medium mb-2">📦 Shipping Information</p>
+                    <ul className="text-xs text-blue-800 space-y-1">
+                      <li>✓ Free shipping for orders above ₹1000</li>
+                      <li>✓ Flat ₹100 shipping for orders below ₹1000</li>
+                      <li>✓ Delivery within 7-8 business days</li>
+                    </ul>
+                  </div> */}
               </motion.div>
             </div>
           </div>
@@ -374,10 +468,15 @@ const Checkout = () => {
                 className="bg-white rounded-lg shadow-lg max-w-sm w-full"
               >
                 <div className="flex items-center justify-between p-6 border-b border-gray-200">
-                  <h2 className="text-xl font-bold text-gray-900">Sign In Required</h2>
+                  <h2 className="text-xl font-bold text-gray-900">Sign In to Checkout</h2>
                   <button
-                    onClick={() => setShowAuthModal(false)}
-                    className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                    onClick={() => {
+                      if (!isAuthenticated) {
+                        // Can't close modal if not authenticated
+                        toast.error('You must sign in to proceed with checkout')
+                      }
+                    }}
+                    className={`p-2 rounded-lg transition-colors ${isAuthenticated ? 'hover:bg-gray-100 cursor-pointer' : 'cursor-not-allowed opacity-50'}`}
                   >
                     <X size={24} />
                   </button>
@@ -385,13 +484,13 @@ const Checkout = () => {
 
                 <div className="p-6">
                   <p className="text-gray-600 mb-6 text-center">
-                    Please sign in or create an account to proceed with checkout.
+                    To complete your order, please sign in or create a new account. This helps us track your orders and provide better support.
                   </p>
 
                   <div className="space-y-3">
                     <button
                       onClick={() => {
-                        setShowAuthModal(false)
+                        sessionStorage.setItem('checkoutRedirect', 'true')
                         navigate('/login')
                       }}
                       className="w-full flex items-center justify-center gap-3 px-4 py-3 bg-primary-600 hover:bg-primary-700 text-white rounded-lg transition-colors font-medium"
@@ -402,7 +501,7 @@ const Checkout = () => {
 
                     <button
                       onClick={() => {
-                        setShowAuthModal(false)
+                        sessionStorage.setItem('checkoutRedirect', 'true')
                         navigate('/register')
                       }}
                       className="w-full flex items-center justify-center gap-3 px-4 py-3 border-2 border-primary-600 text-primary-600 hover:bg-primary-50 rounded-lg transition-colors font-medium"
@@ -411,13 +510,6 @@ const Checkout = () => {
                       Create Account
                     </button>
                   </div>
-
-                  <button
-                    onClick={() => setShowAuthModal(false)}
-                    className="w-full mt-4 px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
-                  >
-                    Continue as Guest
-                  </button>
                 </div>
               </motion.div>
             </motion.div>

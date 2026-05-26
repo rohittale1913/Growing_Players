@@ -10,9 +10,9 @@ const Cart = () => {
   const { items, removeItem, updateQuantity, clearCart } = useCartStore()
 
   const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0)
-  const shipping = subtotal > 500 ? 0 : 50
+  const shipping = subtotal > 1000 ? 0 : 100
   const tax = subtotal * 0.18
-  const total = subtotal + shipping + tax
+  const total = subtotal + shipping 
 
   return (
     <Layout>
@@ -21,7 +21,7 @@ const Cart = () => {
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="heading-h1 text-gray-900 mb-12"
+            className="heading-h1 text-gradient text-center  mb-12"
           >
             Shopping Cart
           </motion.h1>
@@ -33,7 +33,7 @@ const Cart = () => {
                 description="Add some amazing ingredients to get started !"
                 icon={ShoppingCart}
               />
-              <div className="text-center mt-8">
+              <div className="text-center mt-2">
                 <Link to="/products" className="btn-primary inline-flex items-center gap-2">
                   Continue Shopping
                   <ArrowRight size={20} />
@@ -133,7 +133,7 @@ const Cart = () => {
                 className="lg:col-span-1"
               >
                 <div className="card-glass p-6 space-y-4 sticky top-24">
-                  <h3 className="text-lg font-bold text-gray-900">Order Summary</h3>
+                  <h3 className="heading-h3 font-bold text-gradient">Order Summary</h3>
 
                   <div className="space-y-3 border-t border-gray-200 pt-4">
                     <div className="flex justify-between text-gray-700">

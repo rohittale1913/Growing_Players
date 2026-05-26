@@ -17,7 +17,7 @@ export const useCartStore = create((set, get) => ({
   total: 0,
 
   addItem: (product) => {
-    const { items } = get()
+    const { items, calculateTotal } = get()
     const existingItem = items.find((item) => item.id === product.id)
 
     if (existingItem) {
@@ -31,14 +31,23 @@ export const useCartStore = create((set, get) => ({
     } else {
       set({ items: [...items, { ...product, quantity: product.quantity || 1 }] })
     }
+    
+    // Auto-calculate total after adding item
+    setTimeout(() => calculateTotal(), 0)
   },
 
-  removeItem: (productId) =>
+  removeItem: (productId) => {
+    const { calculateTotal } = get()
     set((state) => ({
       items: state.items.filter((item) => item.id !== productId),
-    })),
+    }))
+    
+    // Auto-calculate total after removing item
+    setTimeout(() => calculateTotal(), 0)
+  },
 
   updateQuantity: (productId, quantity) => {
+    const { calculateTotal } = get()
     if (quantity <= 0) {
       get().removeItem(productId)
       return
@@ -48,14 +57,22 @@ export const useCartStore = create((set, get) => ({
         item.id === productId ? { ...item, quantity } : item
       ),
     }))
+    
+    // Auto-calculate total after updating quantity
+    setTimeout(() => calculateTotal(), 0)
   },
 
   clearCart: () => set({ items: [], total: 0 }),
 
   calculateTotal: () => {
     const { items } = get()
-    const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0)
-    set({ total })
+    const calculatedTotal = items.reduce((sum, item) => {
+      const itemPrice = parseFloat(item.price) || 0
+      const itemQty = parseInt(item.quantity) || 0
+      return sum + (itemPrice * itemQty)
+    }, 0)
+    console.log('💰 Cart total calculated:', calculatedTotal, 'Items:', items.length)
+    set({ total: calculatedTotal })
   },
 }))
 
