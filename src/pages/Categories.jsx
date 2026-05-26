@@ -49,19 +49,31 @@ const Categories = () => {
 
   return (
     <Layout>
+      <div className='font-display responsive'>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-center mb-16"
+        >
+          <section className="font-display py-10 px-4 bg-gradient-to-r from-amber-600 to-rose-500">
+            <div className="max-w-6xl mx-auto text-center text-white">
+              <h1 className="text-5xl font-bold mb-2">Product Categories</h1>
+              <p className=" text-amber-100 mb-6">
+                Browse our comprehensive collection of premium cake ingredients and decorations <br /> organized by category.
+              </p>
+            </div>
+          </section>
+          {/* <h1 className="heading-h1 text-gray-900 mb-2">Product Categories</h1>
+            <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+              Browse our comprehensive collection of premium cake ingredients and decorations organized by category
+            </p> */}
+        </motion.div>
+
+      </div>
       <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white py-12">
         <div className="font-display container-responsive">
           {/* Header */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-center mb-16"
-          >
-            <h1 className="heading-h1 text-gray-900 mb-4">Product Categories</h1>
-            <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-              Browse our comprehensive collection of premium cake ingredients and decorations organized by category
-            </p>
-          </motion.div>
+
 
           {/* Loading State */}
           {loading ? (

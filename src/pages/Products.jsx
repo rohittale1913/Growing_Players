@@ -53,19 +53,30 @@ const Products = () => {
 
   return (
     <Layout>
+      <div className="font-display responsive">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mb-12"
+        >
+          <section className="font-display py-10 px-4 bg-gradient-to-r from-amber-600 to-rose-500">
+            <div className="max-w-6xl mx-auto text-center text-white">
+              <h1 className="text-5xl font-bold mb-2">Our Products</h1>
+              <p className=" text-amber-100 mb-6">
+                Explore our complete collection of premium cake ingredients and decorations.
+              </p>
+            </div>
+          </section>
+          {/* <h1 className="heading-h1 text-gray-900 mb-4 ">Our Products</h1>
+            <p className="text-gray-600 text-lg">
+              Explore our complete collection of premium cake ingredients and decorations
+            </p> */}
+        </motion.div>
+      </div>
       <div className="min-h-screen bg-gray-50 py-12">
         <div className="font-display  container-responsive">
           {/* Header */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="mb-12"
-          >
-            <h1 className="heading-h1 text-gray-900 mb-4 ">Our Products</h1>
-            <p className="text-gray-600 text-lg">
-              Explore our complete collection of premium cake ingredients and decorations
-            </p>
-          </motion.div>
+
 
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
             {/* Sidebar - Filters */}
@@ -162,21 +173,19 @@ const Products = () => {
                 <div className="flex gap-2">
                   <button
                     onClick={() => setViewType('grid')}
-                    className={`p-2 rounded-lg transition-colors ${
-                      viewType === 'grid'
+                    className={`p-2 rounded-lg transition-colors ${viewType === 'grid'
                         ? 'bg-primary-500 text-white'
                         : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-                    }`}
+                      }`}
                   >
                     <Grid size={20} />
                   </button>
                   <button
                     onClick={() => setViewType('list')}
-                    className={`p-2 rounded-lg transition-colors ${
-                      viewType === 'list'
+                    className={`p-2 rounded-lg transition-colors ${viewType === 'list'
                         ? 'bg-primary-500 text-white'
                         : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-                    }`}
+                      }`}
                   >
                     <List size={20} />
                   </button>

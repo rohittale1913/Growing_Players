@@ -75,10 +75,10 @@ export default function About() {
     <Layout>
       <div className="font-display min-h-screen bg-gradient-to-b from-amber-50 to-white">
         {/* Hero Section */}
-        <section className="py-16 px-4 bg-gradient-to-r from-amber-600 to-rose-500">
+        <section className="py-10 px-4 bg-gradient-to-r from-amber-600 to-rose-500">
           <div className="max-w-6xl mx-auto text-center text-white">
-            <h1 className="text-5xl font-bold mb-4">Growing Players</h1>
-            <p className="text-xl text-amber-100 mb-6">
+            <h1 className="text-5xl font-bold mb-2">Growing Players</h1>
+            <p className=" text-amber-100 mb-4">
               India's Premier Destination for Premium Cake Design Ingredients & Bakery Decoration. <br /> 
               10+ years of passion, quality, and innovation serving bakers and cake enthusiasts across India.
             </p>

@@ -139,10 +139,11 @@ export default function Contact() {
     <Layout>
       <div className="font-display min-h-screen bg-gradient-to-b from-amber-50 to-white">
         {/* Hero Section */}
-        <section className="py-16 px-4 bg-gradient-to-r from-amber-600 to-rose-500">
+        
+        <section className="py-14 px-4 bg-gradient-to-r from-amber-600 to-rose-500">
           <div className="max-w-6xl mx-auto text-center text-white">
-            <h1 className="text-5xl font-bold mb-4">Get in Touch</h1>
-            <p className="text-xl text-amber-100">
+            <h1 className="text-5xl font-bold mb-2">Get in Touch</h1>
+            <p className=" text-amber-100">
               We'd love to hear from you. Contact Growing Players today!
             </p>
           </div>
