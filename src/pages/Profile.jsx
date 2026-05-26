@@ -164,7 +164,7 @@ const Profile = () => {
 
               {/* Email */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
+                <label className=" text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
                   <Mail className="w-4 h-4" />
                   Email Address
                 </label>
@@ -179,7 +179,7 @@ const Profile = () => {
 
               {/* Phone */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
+                <label className=" text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
                   <Phone className="w-4 h-4" />
                   Phone Number
                 </label>
@@ -200,7 +200,7 @@ const Profile = () => {
 
               {/* Address */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
+                <label className=" text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
                   <MapPin className="w-4 h-4" />
                   Address
                 </label>

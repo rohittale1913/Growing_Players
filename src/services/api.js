@@ -65,33 +65,51 @@ export const productAPI = {
 
   async create(product) {
     try {
+      // Validate required fields
+      if (!product.name || !product.price || !product.stock || !product.category_id) {
+        throw new Error('Missing required fields: name, price, stock, and category_id')
+      }
+
       const { data, error } = await supabase
         .from('products')
         .insert([product])
         .select()
 
-      if (error) throw error
+      if (error) {
+        console.error('Create product error details:', error)
+        throw new Error(error.message || 'Failed to create product')
+      }
       toast.success('Product created successfully')
       return data[0]
     } catch (error) {
-      toast.error('Failed to create product')
+      console.error('Product creation failed:', error.message)
+      toast.error(error.message || 'Failed to create product')
       throw error
     }
   },
 
   async update(id, product) {
     try {
+      // Validate required fields
+      if (!product.name || !product.price || !product.stock || !product.category_id) {
+        throw new Error('Missing required fields: name, price, stock, and category_id')
+      }
+
       const { data, error } = await supabase
         .from('products')
         .update(product)
         .eq('id', id)
         .select()
 
-      if (error) throw error
+      if (error) {
+        console.error('Update product error details:', error)
+        throw new Error(error.message || 'Failed to update product')
+      }
       toast.success('Product updated successfully')
       return data[0]
     } catch (error) {
-      toast.error('Failed to update product')
+      console.error('Product update failed:', error.message)
+      toast.error(error.message || 'Failed to update product')
       throw error
     }
   },

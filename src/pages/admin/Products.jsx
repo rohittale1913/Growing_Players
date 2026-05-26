@@ -2,12 +2,13 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Plus, Edit2, Trash2, Search, X, Loader2, Image as ImageIcon, Upload } from 'lucide-react'
 import AdminLayout from '../../layouts/AdminLayout'
-import { productAPI } from '../../services/api'
+import { productAPI, categoryAPI } from '../../services/api'
 import { uploadProductImage } from '../../services/imageUpload'
 import toast from 'react-hot-toast'
 
 const AdminProducts = () => {
   const [products, setProducts] = useState([])
+  const [categories, setCategories] = useState([])
   const [loading, setLoading] = useState(true)
   const [searchQuery, setSearchQuery] = useState('')
   const [showModal, setShowModal] = useState(false)
@@ -23,6 +24,7 @@ const AdminProducts = () => {
     category_id: '',
     stock: '',
     image: '',
+    premium: false,
     manufactured_packed_by_name: '',
     manufactured_packed_by_address: '',
     manufactured_lic_no: '',
@@ -45,7 +47,20 @@ const AdminProducts = () => {
 
   useEffect(() => {
     fetchProducts()
+    fetchCategories()
   }, [])
+
+  const fetchCategories = async () => {
+    try {
+      const data = await categoryAPI.getAll()
+      const categoryList = Array.isArray(data) ? data : []
+      setCategories(categoryList)
+      console.log('Categories loaded:', categoryList)
+    } catch (error) {
+      console.error('Failed to fetch categories:', error)
+      toast.error('Failed to load categories')
+    }
+  }
 
   const fetchProducts = async () => {
     try {
@@ -58,6 +73,11 @@ const AdminProducts = () => {
     } finally {
       setLoading(false)
     }
+  }
+
+  const getCategoryName = (categoryId) => {
+    const category = categories.find((c) => c.id === categoryId)
+    return category ? category.name : 'Uncategorized'
   }
 
   const filteredProducts = products.filter((p) =>
@@ -79,6 +99,7 @@ const AdminProducts = () => {
         category_id: product.category_id || '',
         stock: product.stock || '',
         image: product.image || '',
+        premium: product.premium || false,
         manufactured_packed_by_name: product.manufactured_packed_by_name || '',
         manufactured_packed_by_address: product.manufactured_packed_by_address || '',
         manufactured_lic_no: product.manufactured_lic_no || '',
@@ -106,6 +127,7 @@ const AdminProducts = () => {
         category_id: '',
         stock: '',
         image: '',
+        premium: false,
         manufactured_packed_by_name: '',
         manufactured_packed_by_address: '',
         manufactured_lic_no: '',
@@ -175,6 +197,31 @@ const AdminProducts = () => {
     setSubmitting(true)
 
     try {
+      // Validate required fields
+      if (!formData.name?.trim()) {
+        toast.error('Product name is required')
+        setSubmitting(false)
+        return
+      }
+
+      if (!formData.price || formData.price <= 0) {
+        toast.error('Valid price is required')
+        setSubmitting(false)
+        return
+      }
+
+      if (!formData.stock || formData.stock < 0) {
+        toast.error('Valid stock quantity is required')
+        setSubmitting(false)
+        return
+      }
+
+      if (!formData.category_id) {
+        toast.error('Please select a category')
+        setSubmitting(false)
+        return
+      }
+
       let imageUrl = formData.image
 
       // Upload image if file selected
@@ -186,6 +233,9 @@ const AdminProducts = () => {
 
       const productData = {
         ...formData,
+        price: parseFloat(formData.price),
+        original_price: formData.original_price ? parseFloat(formData.original_price) : null,
+        stock: parseInt(formData.stock),
         image: imageUrl,
       }
 
@@ -201,7 +251,8 @@ const AdminProducts = () => {
       fetchProducts()
     } catch (error) {
       console.error('Failed to save product:', error)
-      toast.error('Failed to save product')
+      const errorMessage = error?.message || 'Failed to save product'
+      toast.error(errorMessage)
     } finally {
       setSubmitting(false)
       setImageUploading(false)
@@ -340,7 +391,7 @@ const AdminProducts = () => {
                         </span>
                       </td>
                       <td className="px-6 py-4 text-sm text-gray-600">
-                        {product.category_id || 'Uncategorized'}
+                        {getCategoryName(product.category_id)}
                       </td>
                       <td className="px-6 py-4">
                         <div className="flex items-center gap-2">
@@ -381,7 +432,7 @@ const AdminProducts = () => {
                 initial={{ scale: 0.95, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0.95, opacity: 0 }}
-                className="bg-white rounded-lg shadow-lg max-w-2xl w-full max-h-screen overflow-y-auto"
+                className="bg-white rounded-lg shadow-lg max-w-2xl w-full max-h-screen overflow-y-auto flex flex-col"
               >
                 <div className="flex items-center justify-between p-6 border-b border-gray-200 sticky top-0 bg-white">
                   <h2 className="text-2xl font-bold text-gray-900">
@@ -395,7 +446,7 @@ const AdminProducts = () => {
                   </button>
                 </div>
 
-                <form onSubmit={handleSubmit} className="p-6 space-y-4">
+                <form onSubmit={handleSubmit} className="p-6 space-y-4 overflow-y-auto flex-1">
                 {/* Product Name and Category Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {/* Product Name */}
@@ -480,18 +531,43 @@ const AdminProducts = () => {
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Category ID
+                        Category *
                       </label>
-                      <input
-                        type="text"
+                      <select
                         name="category_id"
                         value={formData.category_id}
                         onChange={handleChange}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                        placeholder="Category ID"
-                      />
+                        required
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white relative z-10"
+                      >
+                        <option value="">Select a Category</option>
+                        {Array.isArray(categories) && categories.length > 0 ? (
+                          categories.map((category) => (
+                            <option key={category.id} value={category.id}>
+                              {category.name}
+                            </option>
+                          ))
+                        ) : (
+                          <option disabled>No categories available</option>
+                        )}
+                      </select>
                     </div>
                   </div>
+                </div>
+
+                {/* Premium Checkbox */}
+                <div className="flex items-center gap-3 bg-gradient-to-r from-primary-50 to-rose-50 p-4 rounded-lg border border-primary-200">
+                  <input
+                    type="checkbox"
+                    id="premium"
+                    name="premium"
+                    checked={formData.premium}
+                    onChange={(e) => setFormData({ ...formData, premium: e.target.checked })}
+                    className="w-5 h-5 text-primary-600 rounded focus:ring-2 focus:ring-primary-500 cursor-pointer"
+                  />
+                  <label htmlFor="premium" className="text-sm font-medium text-gray-700 cursor-pointer">
+                    ⭐ Mark as Premium Product (Featured on Home Page)
+                  </label>
                 </div>
 
                   {/* Manufacturer Details */}

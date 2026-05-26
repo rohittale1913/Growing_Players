@@ -37,6 +37,12 @@ const ProductCard = ({ product, showQuickView }) => {
           </div>
         )}
 
+        {product.premium && (
+          <div className="absolute top-4 left-4 bg-gradient-to-r from-primary-500 to-accent-500 text-white px-3 py-1 rounded-full text-sm font-bold flex items-center gap-1">
+            ⭐ Premium
+          </div>
+        )}
+
         {/* Overlay Actions */}
         <motion.div
           initial={{ opacity: 0 }}

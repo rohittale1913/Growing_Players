@@ -4,30 +4,37 @@ import { Search, Filter, Grid, List } from 'lucide-react'
 import Layout from '../layouts/MainLayout'
 import ProductCard from '../components/ProductCard'
 import { SkeletonLoader, EmptyState } from '../components/Loaders'
-import { productAPI } from '../services/api'
+import { productAPI, categoryAPI } from '../services/api'
 
 const Products = () => {
   const [products, setProducts] = useState([])
+  const [categories, setCategories] = useState([])
   const [filteredProducts, setFilteredProducts] = useState([])
   const [loading, setLoading] = useState(true)
   const [viewType, setViewType] = useState('grid')
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('all')
-  const [priceRange, setPriceRange] = useState([0, 1000])
+  const [priceRange, setPriceRange] = useState([0, 10000])
 
   useEffect(() => {
-    const fetchProducts = async () => {
+    const fetchData = async () => {
       try {
-        const data = await productAPI.getAll()
-        setProducts(data || [])
+        const [productsData, categoriesData] = await Promise.all([
+          productAPI.getAll(),
+          categoryAPI.getAll(),
+        ])
+        console.log('📦 Products fetched:', productsData)
+        console.log('📂 Categories fetched:', categoriesData)
+        setProducts(productsData || [])
+        setCategories(Array.isArray(categoriesData) ? categoriesData : [])
       } catch (error) {
-        console.error('Failed to fetch products:', error)
+        console.error('❌ Failed to fetch data:', error)
       } finally {
         setLoading(false)
       }
     }
 
-    fetchProducts()
+    fetchData()
   }, [])
 
   useEffect(() => {
@@ -40,13 +47,17 @@ const Products = () => {
       )
     }
 
-    // Filter by category
+    // Filter by category - use category_id instead of category name
     if (selectedCategory !== 'all') {
-      result = result.filter((p) => p.category === selectedCategory)
+      result = result.filter((p) => p.category_id === selectedCategory)
+      console.log('🏷️ Filtered by category:', selectedCategory, 'Count:', result.length)
     }
 
     // Filter by price
     result = result.filter((p) => p.price >= priceRange[0] && p.price <= priceRange[1])
+    
+    console.log('💰 Price range:', priceRange)
+    console.log('✨ Final filtered products:', result.length)
 
     setFilteredProducts(result)
   }, [searchQuery, selectedCategory, priceRange, products])
@@ -121,10 +132,11 @@ const Products = () => {
                     className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:border-primary-500"
                   >
                     <option value="all">All Categories</option>
-                    <option value="Crushes">Crushes</option>
-                    <option value="Jellies">Jellies</option>
-                    <option value="Toppings">Toppings</option>
-                    <option value="Accessories">Accessories</option>
+                    {categories.map((category) => (
+                      <option key={category.id} value={category.id}>
+                        {category.name}
+                      </option>
+                    ))}
                   </select>
                 </div>
 
@@ -136,7 +148,7 @@ const Products = () => {
                   <input
                     type="range"
                     min="0"
-                    max="1000"
+                    max="10000"
                     value={priceRange[1]}
                     onChange={(e) =>
                       setPriceRange([priceRange[0], parseInt(e.target.value)])
@@ -150,7 +162,7 @@ const Products = () => {
                   onClick={() => {
                     setSearchQuery('')
                     setSelectedCategory('all')
-                    setPriceRange([0, 1000])
+                    setPriceRange([0, 10000])
                   }}
                   className="w-full btn-secondary"
                 >

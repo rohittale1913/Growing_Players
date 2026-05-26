@@ -10,6 +10,21 @@ import { useState, useEffect } from 'react'
 import homePicture from "../assets/homePicture.png"
 import toast from 'react-hot-toast'
 
+// Gallery Images
+import galleryBerryBliss from '../assets/gallary/Berry bliss.avif'
+import galleryCaramel from '../assets/gallary/Caramel.avif'
+import galleryChocoParadise from '../assets/gallary/Choco paradise.avif'
+import galleryGoldenSparkle from '../assets/gallary/Golden Sparkel.avif'
+import galleryMintFantasy from '../assets/gallary/mint fantasy.avif'
+import galleryPinkPerfection from '../assets/gallary/pink perfection.avif'
+import galleryRainbowJoy from '../assets/gallary/Rainbo joy.avif'
+import galleryRoyalVelvet from '../assets/gallary/Royal velvet.avif'
+
+// Customer Images
+import customer1 from '../assets/kunal_waghmare.jpeg'
+import customer2 from '../assets/rohit_tale.jpg'
+import customer3 from '../assets/shrikant_sable.jpeg'
+
 const Home = () => {
   const [featuredProducts, setFeaturedProducts] = useState([])
   const [categories, setCategories] = useState([])
@@ -26,8 +41,10 @@ const Home = () => {
           categoryAPI.getAll(),
         ])
 
-        // Get first 4 products as featured
-        setFeaturedProducts((productsData || []).slice(0, 4))
+        // Get only premium products (up to 4) as featured
+        const premiumProducts = (productsData || []).filter((p) => p.premium === true).slice(0, 4)
+        setFeaturedProducts(premiumProducts)
+        
         // Get first 3 categories
         setCategories((categoriesData || []).slice(0, 3))
       } catch (error) {
@@ -63,25 +80,25 @@ const Home = () => {
   const testimonials = [
     {
       id: 1,
-      name: 'Sarah Baker',
+      name: 'Kunal Waghmare',
       role: 'Professional Pastry Chef',
-      // image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop',
+       image: customer1,
       quote: 'Growing Players provides the highest quality ingredients. My clients love the premium finishing!',
       rating: 5,
     },
     {
       id: 2,
-      name: 'Priya Singh',
-      role: 'Cake Designer',
-      // image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop',
+      name: ' Rohit Tale',
+      role: 'Cake Baker',
+      image: customer2,
       quote: 'The variety and quality of products are unmatched. Highly recommended for serious bakers.',
       rating: 5,
     },
     {
       id: 3,
-      name: 'Rahul Patel',
+      name: 'Shrikant Sable',
       role: 'Bakery Owner',
-      // image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop',
+     image: customer3,
       quote: 'Consistent quality and fast delivery. Growing Players is my go-to supplier.',
       rating: 5,
     },
@@ -300,12 +317,21 @@ const Home = () => {
           >
             <h2 className="font-display heading-h2 mb-4">Featured Products</h2>
             <p className="font-display text-gray-600 text-lg max-w-2xl mx-auto">
-              Explore our best-selling premium ingredients loved by bakers worldwide
+              Explore our premium selection - the finest ingredients loved by bakers worldwide
             </p>
           </motion.div>
 
           {loading ? (
             <SkeletonLoader count={4} />
+          ) : featuredProducts.length === 0 ? (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="bg-white rounded-lg shadow-md p-12 text-center"
+            >
+              <p className="text-gray-600 mb-4">No premium products available yet</p>
+              <p className="text-sm text-gray-500">Mark products as premium in the admin panel to display them here</p>
+            </motion.div>
           ) : (
             <motion.div
               variants={containerVariants}
@@ -456,14 +482,14 @@ const Home = () => {
           {/* Gallery Grid */}
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-12">
             {[
-              { title: 'Royal Velvet', category: 'Wedding', rating: 5 },
-              { title: 'Choco Paradise', category: 'Chocolate', rating: 5 },
-              { title: 'Berry Bliss', category: 'Fruits', rating: 5 },
-              { title: 'Golden Sparkle', category: 'Glaze', rating: 5 },
-              { title: 'Pink Perfection', category: 'Wedding', rating: 5 },
-              { title: 'Mint Fantasy', category: 'Flavors', rating: 5 },
-              { title: 'Caramel Dreams', category: 'Premium', rating: 5 },
-              { title: 'Rainbow Joy', category: 'Colorful', rating: 5 },
+              { title: 'Royal Velvet', category: 'Wedding', rating: 5, image: galleryRoyalVelvet },
+              { title: 'Choco Paradise', category: 'Chocolate', rating: 5, image: galleryChocoParadise },
+              { title: 'Berry Bliss', category: 'Fruits', rating: 5, image: galleryBerryBliss },
+              { title: 'Golden Sparkle', category: 'Glaze', rating: 5, image: galleryGoldenSparkle },
+              { title: 'Pink Perfection', category: 'Wedding', rating: 5, image: galleryPinkPerfection },
+              { title: 'Mint Fantasy', category: 'Flavors', rating: 5, image: galleryMintFantasy },
+              { title: 'Caramel Dreams', category: 'Premium', rating: 5, image: galleryCaramel },
+              { title: 'Rainbow Joy', category: 'Colorful', rating: 5, image: galleryRainbowJoy },
             ].map((item, i) => (
               <motion.div
                 key={i}
@@ -473,11 +499,13 @@ const Home = () => {
                 whileHover={{ y: -8 }}
                 className="group relative rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer"
               >
-                {/* Placeholder Image with Gradient */}
-                <div className="aspect-square bg-gradient-to-br from-primary-500 via-accent-400 to-rose-500 relative overflow-hidden">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <Eye className="text-white/40 w-12 h-12" />
-                  </div>
+                {/* Gallery Image */}
+                <div className="aspect-square relative overflow-hidden">
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                  />
                   
                   {/* Overlay */}
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/50 transition-colors duration-300 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100">
