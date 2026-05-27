@@ -155,7 +155,7 @@ const Register = () => {
             {/* Header */}
             <h1 className="heading-h2 text-gray-900 mb-2">Create Account</h1>
             <p className="text-gray-600 mb-8">
-              Join Growing Players and start shopping premium ingredients
+              Join Growing Player's and start shopping premium ingredients
             </p>
 
             {/* Error Message */}

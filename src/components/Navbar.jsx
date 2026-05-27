@@ -34,7 +34,7 @@ const Navbar = () => {
               />
             </div>
             <div className="font-display heading-h3">
-              Growing Players
+              Growing Player's
             </div>
           </Link>
 

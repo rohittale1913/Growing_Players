@@ -52,7 +52,7 @@ const Footer = () => {
         >
           {/* About */}
           <motion.div variants={item}>
-            <h4 className="text-lg font-bold mb-4">Growing Players</h4>
+            <h4 className="text-lg font-bold mb-4">Growing Player's</h4>
             <p className="text-gray-400 text-sm leading-relaxed mb-4">
               Premium cake design ingredients and bakery decoration products for professional bakers and enthusiasts.
             </p>
@@ -154,11 +154,12 @@ const Footer = () => {
               </div>
               <div className="flex gap-3">
                 <MapPin size={18} className="text-primary-500 flex-shrink-0 mt-0.5" />
-                <address className="not-italic">
-                  123 Baker Street<br />
-                  Food Park, New Delhi<br />
-                  India - 110001
-                </address>
+                <a href="https://maps.app.goo.gl/Pn6Fh8hwttrywoEs5" className="hover:text-primary-500 transition-colors">  <address className="not-italic">
+                  Growing Player's <br />
+                  Near Dr. Pathak House,<br />
+                  Pannlal Nagar,<br />
+                  Amravati - 444605
+                </address></a>
               </div>
             </div>
           </motion.div>
@@ -167,7 +168,7 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="border-t border-gray-700 py-6 flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-gray-400 text-sm text-center">
-            © 2026 Growing Players Pvt Ltd. All rights reserved. 
+            © 2026 Growing Player's Pvt Ltd. All rights reserved.
           </p>
           {/* <div className="flex gap-4">
             <img src="https://img.shields.io/badge/Visa-1434CB?style=flat&logo=visa&logoColor=white" alt="Visa" className="h-6" />

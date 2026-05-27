@@ -17,7 +17,7 @@ export default function About() {
       name: 'Rajesh Kumar',
       role: 'Founder & CEO',
       experience: '15+ years in baking industry',
-      bio: 'Visionary leader who started Growing Players with a dream to make premium baking supplies accessible to every baker in India.',
+      bio: 'Visionary leader who started Growing Player\'s with a dream to make premium baking supplies accessible to every baker in India.',
     },
     {
       name: 'Priya Sharma',
@@ -77,7 +77,7 @@ export default function About() {
         {/* Hero Section */}
         <section className="py-10 px-4 bg-gradient-to-r from-amber-600 to-rose-500">
           <div className="max-w-6xl mx-auto text-center text-white">
-            <h1 className="text-5xl font-bold mb-2">Growing Players</h1>
+            <h1 className="text-5xl font-bold mb-2">Growing Player's</h1>
             <p className=" text-amber-100 mb-4">
               India's Premier Destination for Premium Cake Design Ingredients & Bakery Decoration. <br /> 
               10+ years of passion, quality, and innovation serving bakers and cake enthusiasts across India.
@@ -110,10 +110,10 @@ export default function About() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
                 <p className="text-gray-700 leading-relaxed mb-4">
-                  Growing Players was founded in 2016 with a simple yet powerful vision: to make premium baking supplies and cake decoration products accessible to every baker in India. What started as a small store in Delhi has blossomed into a trusted name across the country.
+                  Growing Player's was founded in 2016 with a simple yet powerful vision: to make premium baking supplies and cake decoration products accessible to every baker in India. What started as a small store in Delhi has blossomed into a trusted name across the country.
                 </p>
                 <p className="text-gray-700 leading-relaxed mb-4">
-                  We realized early on that passionate bakers in India were struggling to find quality ingredients and tools. Import costs were high, local alternatives were limited, and the baking community needed support. That's when Growing Players was born.
+                  We realized early on that passionate bakers in India were struggling to find quality ingredients and tools. Import costs were high, local alternatives were limited, and the baking community needed support. That's when Growing Player's was born.
                 </p>
                 <p className="text-gray-700 leading-relaxed mb-4">
                   Over 10 years, we've grown from a single store to a pan-India online presence, serving 1000+ happy customers. We've built relationships with premium suppliers worldwide while supporting local Indian manufacturers, ensuring you get the best of both worlds.
@@ -209,7 +209,7 @@ export default function About() {
         {/* Why Choose Us Section */}
         <section className="py-16 px-4 bg-gradient-to-r from-amber-50 to-rose-50">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-4xl font-bold text-center mb-12 text-gray-800">Why Choose Growing Players?</h2>
+            <h2 className="text-4xl font-bold text-center mb-12 text-gray-800">Why Choose Growing Player's ?</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {[
                 {
@@ -279,7 +279,7 @@ export default function About() {
           <div className="max-w-4xl mx-auto text-center text-white">
             <h2 className="text-3xl font-bold mb-4">Join Our Growing Community</h2>
             <p className="text-lg text-amber-100 mb-8">
-              Become part of 5,000+ bakers who trust Growing Players for their baking needs
+              Become part of 5,000+ bakers who trust Growing Player's for their baking needs
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a

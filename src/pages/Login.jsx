@@ -135,7 +135,7 @@ const Login = () => {
             <p className="text-center text-gray-600 mb-6">
               {isAdminLogin 
                 ? 'Admin access only - verify your credentials' 
-                : 'Sign in to your Growing Players account'}
+                : 'Sign in to your Growing Player\'s account'}
             </p>
 
             {/* Admin Login Toggle */}
@@ -278,7 +278,7 @@ const Login = () => {
                     <div className="w-full border-t border-gray-300"></div>
                   </div>
                   <div className="relative flex justify-center text-sm">
-                    <span className="px-2 bg-white text-gray-500">New to Growing Players?</span>
+                    <span className="px-2 bg-white text-gray-500">New to Growing Player's ?</span>
                   </div>
                 </div>
 

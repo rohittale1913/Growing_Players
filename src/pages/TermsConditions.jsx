@@ -8,7 +8,7 @@ const TermsConditions = () => {
   const sections = [
     {
       title: '1. Acceptance of Terms',
-      content: `By accessing and using the Growing Players website (the "Site") and services, you agree to be bound by these Terms & Conditions. If you do not agree to any part of these terms, please do not use our Site or services. These terms apply to all users, including but not limited to browsers, customers, vendors, and contributors of content. If you do not accept our terms, please stop using the Site immediately.`,
+      content: `By accessing and using the Growing Player\'s website (the "Site") and services, you agree to be bound by these Terms & Conditions. If you do not agree to any part of these terms, please do not use our Site or services. These terms apply to all users, including but not limited to browsers, customers, vendors, and contributors of content. If you do not accept our terms, please stop using the Site immediately.`,
     },
     {
       title: '2. User Accounts',
@@ -115,7 +115,7 @@ We reserve the right to:
     {
       title: '8. Intellectual Property Rights',
       content: `Ownership:
-• All content on the Site, including text, graphics, logos, images, and software, is the property of Growing Players or our licensors.
+• All content on the Site, including text, graphics, logos, images, and software, is the property of Growing Player\'s or our licensors.
 • You may not reproduce, distribute, modify, or transmit any content without our prior written consent.
 
 Limited License:
@@ -124,7 +124,7 @@ Limited License:
 • You may not scrape, crawl, or use automated tools to access our Site.
 
 Trademarks:
-• "Growing Players" and related logos are trademarks of Growing Players, Inc.
+• "Growing Player\'s" and related logos are trademarks of Growing Player\'s, Inc.
 • You may not use our trademarks without prior written permission.`,
     },
     {
@@ -175,7 +175,7 @@ Exceptions:
 Email: legal@growingplayers.com
 Phone: 1800-1234-5678
 Mailing Address:
-Growing Players, 123 Bakery Lane, San Francisco, CA 94103, USA.
+Growing Player\'s,  Near Dr. Pathak House, Pannalal Nagar, Amravati - 444605
 
 Response Time: We will respond to inquiries within 7 business days.`,
     },
@@ -187,12 +187,12 @@ Response Time: We will respond to inquiries within 7 business days.`,
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
           <div className="mb-10 text-center">
-            <h1 className="text-4xl font-bold text-gray-900 mb-2">Terms & Conditions</h1>
+            <h1 className="text-4xl font-bold text-gradient mb-2">Terms & Conditions</h1>
             {/* <p className="text-lg text-gray-600">
               Last Updated: January 2024
             </p> */}
             <p className="text-gray-600 mt-2">
-              Please read these Terms & Conditions carefully before using the Growing Players website and services.
+              Please read these Terms & Conditions carefully before using the Growing Player's website and services.
             </p>
           </div>
 
@@ -207,11 +207,10 @@ Response Time: We will respond to inquiries within 7 business days.`,
                     setActiveSection(idx)
                     document.getElementById(`section-${idx}`)?.scrollIntoView({ behavior: 'smooth' })
                   }}
-                  className={`text-left p-2 rounded-lg transition-all ${
-                    activeSection === idx
-                      ? 'bg-primary-600 text-white'
-                      : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-200'
-                  }`}
+                  className={`text-left p-2 rounded-lg transition-all ${activeSection === idx
+                    ? 'bg-primary-600 text-white'
+                    : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-200'
+                    }`}
                 >
                   {section.title}
                 </button>

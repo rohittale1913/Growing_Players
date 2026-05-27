@@ -32,7 +32,7 @@ const PrivacyPolicy = () => {
     },
     {
       title: '7. Third-Party Links',
-      content: `Our website may contain links to third-party websites. This Privacy Policy applies only to Growing Players. We are not responsible for the privacy practices of external websites. We encourage you to review the privacy policies of any third-party sites before providing your information.`,
+      content: `Our website may contain links to third-party websites. This Privacy Policy applies only to Growing Player\'s. We are not responsible for the privacy practices of external websites. We encourage you to review the privacy policies of any third-party sites before providing your information.`,
     },
     {
       title: '8. Policy Changes',
@@ -46,12 +46,12 @@ const PrivacyPolicy = () => {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
           <div className="mb-10 text-center">
-            <h1 className="text-4xl font-bold text-gray-900 mb-2">Privacy Policy</h1>
+            <h1 className="text-4xl font-bold text-gradient mb-2">Privacy Policy</h1>
             {/* <p className="text-lg text-gray-600">
               Last Updated: January 2024
             </p> */}
             <p className="text-gray-600 mt-2">
-              At Growing Players, we are committed to protecting your privacy and ensuring transparency about<br />  how we collect,use, and safeguard your personal information.
+              At Growing Player's, we are committed to protecting your privacy and ensuring transparency about<br />  how we collect,use, and safeguard your personal information.
             </p>
           </div>
 

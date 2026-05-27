@@ -83,7 +83,7 @@ const Home = () => {
       name: 'Kunal Waghmare',
       role: 'Professional Pastry Chef',
        image: customer1,
-      quote: 'Growing Players provides the highest quality ingredients. My clients love the premium finishing!',
+      quote: 'Growing Player\'s provides the highest quality ingredients. My clients love the premium finishing!',
       rating: 5,
     },
     {
@@ -99,7 +99,7 @@ const Home = () => {
       name: 'Shrikant Sable',
       role: 'Bakery Owner',
      image: customer3,
-      quote: 'Consistent quality and fast delivery. Growing Players is my go-to supplier.',
+      quote: 'Consistent quality and fast delivery. Growing Player\'s is my go-to supplier.',
       rating: 5,
     },
   ]
@@ -474,7 +474,7 @@ const Home = () => {
           >
             <h2 className="heading-h2 text-gray-900 mb-4">Gallery of Excellence</h2>
             <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-              Discover stunning creations crafted with Growing Players premium ingredients. 
+              Discover stunning creations crafted with Growing Player's premium ingredients. <br />
               From elegant wedding cakes to playful desserts, our products make magic happen.
             </p>
           </motion.div>

@@ -76,12 +76,12 @@ const ShippingPolicy = () => {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
           <div className="mb-10 text-center">
-            <h1 className="text-4xl font-bold text-gray-900 mb-2">Shipping Policy</h1>
+            <h1 className="text-4xl font-bold text-gradient mb-2">Shipping Policy</h1>
             {/* <p className="text-lg text-gray-600 mb-2">
               Last Updated: January 2024
             </p> */}
             <p className="text-gray-600">
-              At Growing Players, we're committed to delivering your orders safely and promptly. <br /> Here's everything you need to know about our shipping policies.
+              At Growing Player's, we're committed to delivering your orders safely and promptly. <br /> Here's everything you need to know about our shipping policies.
             </p>
           </div>
 
@@ -244,12 +244,12 @@ const ShippingPolicy = () => {
 
           {/* Contact */}
           <div className="bg-primary-600 text-white rounded-lg p-8 text-center">
-            <h2 className="text-2xl font-bold mb-4">Need Help with Your Shipment?</h2>
-            <p className="mb-6">Contact our shipping support team for any questions or concerns.</p>
+            <h2 className="text-2xl font-bold mb-2">Need Help with Your Shipment?</h2>
+            <p className="mb-2">Contact our shipping support team for any questions or concerns.</p>
             <div className="space-y-2">
               <p>Email: shipping@growingplayers.com</p>
-              <p>Phone: 1-800-GROWING (1-800-476-8946)</p>
-              <p>Hours: Monday - Friday, 9 AM - 6 PM PT</p>
+              <p>Phone: 1800-1234-5678</p>
+              <p>Hours: Mon - Sat, 10 AM - 8 PM IST</p>
             </div>
           </div>
         </div>

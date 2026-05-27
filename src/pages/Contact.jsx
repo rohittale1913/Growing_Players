@@ -18,7 +18,7 @@ export default function Contact() {
   const offices = [
     {
       city: 'Amravati (Head Office)',
-      address: 'Growing Players, 123 Bakery Lane, Amravati, Teh:- Amravati, Dist:- Amravati - 110001, India',
+      address: 'Growing Player\'s, Near Dr. Pathak House, Pannalal Nagar, Amravati - 444605',
       phone: '+91-11-4567-8901',
       email: 'amravati@growingplayers.com',
       hours: 'Mon - Sat: 10 AM - 8 PM\nSunday: Closed',
@@ -143,7 +143,7 @@ export default function Contact() {
           <div className="max-w-6xl mx-auto text-center text-white">
             <h1 className="text-5xl font-bold mb-2">Get in Touch</h1>
             <p className=" text-amber-100">
-              We'd love to hear from you. Contact Growing Players today!
+              We'd love to hear from you. Contact Growing Player's today !
             </p>
           </div>
         </section>
@@ -321,7 +321,7 @@ export default function Contact() {
                     <div className='flex'>
                       <p className="text-sm text-gray-600 font-semibold  flex items-center gap-2">
                         <Home className="w-4 h-4" />
-                        Address:- <a href="/location"
+                        Address:- <a href="https://maps.app.goo.gl/Pn6Fh8hwttrywoEs5"
                           className="text-amber-600 hover:text-amber-700 font-semibold"
                         >
                           {office.address}
@@ -357,7 +357,7 @@ export default function Contact() {
                     <div className='flex'>
                       <p className="text-sm text-gray-600 font-semibold  flex items-center gap-2">
                         <Clock className="w-4 h-4" />
-                        Business Hours:- <a href="/location"
+                        Business Hours:- <a href="https://maps.app.goo.gl/Pn6Fh8hwttrywoEs5"
                           className="text-amber-600 hover:text-amber-700 font-semibold"
                         >
                           {office.hours} {office.timing}

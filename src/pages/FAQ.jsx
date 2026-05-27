@@ -47,7 +47,7 @@ const FAQ = () => {
         {
           id: 7,
           question: 'Are all products food-safe?',
-          answer: 'Yes, all food items sold at Growing Players meet food safety standards. However, non-food items like tools and equipment are not for consumption. Please check product descriptions for specific details.'
+          answer: 'Yes, all food items sold at Growing Player\'s meet food safety standards. However, non-food items like tools and equipment are not for consumption. Please check product descriptions for specific details.'
         },
         {
           id: 8,
@@ -237,13 +237,13 @@ const FAQ = () => {
         {
           id: 38,
           question: 'How do I contact customer support?',
-          answer: 'Email support@growingplayers.com anytime, or call 1-800-GROWING (1-800-476-8946) Monday-Friday, 9 AM-6 PM PT. Response time is typically within 24 hours.'
+          answer: 'Email support@growingplayers.com anytime, or call 1800-1234-5678  Mon-Sat, 10 AM - 8 PM IST. Response time is typically within 24 hours.'
         },
-        {
-          id: 39,
-          question: 'What are your support hours?',
-          answer: 'Email support is available 24/7. Phone support is available Monday-Friday, 9 AM-6 PM Pacific Time. We respond to emails within 24 business hours.'
-        },
+        // {
+        //   id: 39,
+        //   question: 'What are your support hours?',
+        //   answer: 'Email support is available 24/7. Phone support is available Monday-Friday, 9 AM-6 PM Pacific Time. We respond to emails within 24 business hours.'
+        // },
         {
           id: 40,
           question: 'Do you have a physical store location?',
@@ -263,7 +263,7 @@ const FAQ = () => {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
           <div className="mb-10 text-center">
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">Frequently Asked Questions</h1>
+            <h1 className="text-4xl font-bold text-gradient mb-4">Frequently Asked Questions</h1>
             <p className="text-lg text-gray-600">
               Can't find the answer you're looking for? Email us at support@growingplayers.com
             </p>
